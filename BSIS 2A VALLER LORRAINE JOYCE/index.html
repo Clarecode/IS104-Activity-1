@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Enrollment System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <h1>Student Enrollment System</h1>
+      <p>Student enrollment, management, and summary report</p>
+    </div>
+    <span class="school-mark">SES</span>
+  </header>
+
+  <nav class="navigation" aria-label="Main navigation">
+    <button class="nav-btn active" data-page="enrollment">Student Enrollment</button>
+    <button class="nav-btn" data-page="errors">Error Preview</button>
+    <button class="nav-btn" data-page="management">Student Table</button>
+    <button class="nav-btn" data-page="summary">Summary Report</button>
+  </nav>
+
+  <main>
+    <!-- DESIGN 1: STUDENT ENROLLMENT FORM -->
+    <section id="enrollment" class="page active">
+      <div class="panel enrollment-panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">REGISTRATION</p>
+            <h2>STUDENT ENROLLMENT FORM</h2>
+            <p class="subheading">Please complete all required information.</p>
+          </div>
+        </div>
+
+        <form id="studentForm" novalidate>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="studentId">Student ID <span>*</span></label>
+              <input id="studentId" name="studentId" placeholder="Enter student id">
+              <small class="error-message" id="studentIdError"></small>
+            </div>
+            <div class="form-group">
+              <label for="fullName">Full Name <span>*</span></label>
+              <input id="fullName" name="fullName" placeholder="Enter full name">
+              <small class="error-message" id="fullNameError"></small>
+            </div>
+            <div class="form-group">
+              <label for="email">Email <span>*</span></label>
+              <input id="email" name="email" type="email" placeholder="Enter email">
+              <small class="error-message" id="emailError"></small>
+            </div>
+            <div class="form-group">
+              <label for="age">Age <span>*</span></label>
+              <input id="age" name="age" type="number" min="1" max="100" placeholder="Enter age">
+              <small class="error-message" id="ageError"></small>
+            </div>
+            <div class="form-group">
+              <label for="course">Course <span>*</span></label>
+              <select id="course" name="course">
+                <option value="">Select course</option>
+                <option value="BSIS">BSIS</option>
+                <option value="BSIT">BSIT</option>
+                <option value="BSBA">BSBA</option>
+                <option value="BSED">BSED</option>
+              </select>
+              <small class="error-message" id="courseError"></small>
+            </div>
+            <div class="form-group">
+              <label for="yearLevel">Year Level <span>*</span></label>
+              <select id="yearLevel" name="yearLevel">
+                <option value="">Select year level</option>
+                <option value="1st Year">1st Year</option>
+                <option value="2nd Year">2nd Year</option>
+                <option value="3rd Year">3rd Year</option>
+                <option value="4th Year">4th Year</option>
+              </select>
+              <small class="error-message" id="yearLevelError"></small>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="reset" class="btn btn-light" id="clearBtn">Clear</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+          <p id="formNotice" class="form-notice" role="status"></p>
+        </form>
+      </div>
+    </section>
+
+    <!-- DESIGN 2: ERROR STATE PREVIEW -->
+    <section id="errors" class="page">
+      <div class="panel error-preview-panel">
+        <p class="eyebrow">FORM VALIDATION</p>
+        <h2>STUDENT ENROLLMENT FORM – ERROR PREVIEW</h2>
+        <p class="subheading">This preview shows how the form looks when required fields are missing or invalid.</p>
+        <div class="preview-form">
+          <div class="form-group invalid">
+            <label>Student ID <span>*</span></label>
+            <input value="Enter student id" readonly>
+            <small class="error-message">▲ Required</small>
+          </div>
+          <div class="form-group invalid">
+            <label>Full Name <span>*</span></label>
+            <input value="Enter full name" readonly>
+            <small class="error-message">▲ Required</small>
+          </div>
+          <div class="form-group invalid">
+            <label>Email <span>*</span></label>
+            <input value="Enter email" readonly>
+            <small class="error-message">▲ Enter a valid email address</small>
+          </div>
+          <div class="form-group invalid">
+            <label>Age <span>*</span></label>
+            <input value="Enter age" readonly>
+            <small class="error-message">▲ Must be a valid age</small>
+          </div>
+          <div class="form-group invalid">
+            <label>Course <span>*</span></label>
+            <input value="Enter course" readonly>
+            <small class="error-message">▲ Please select a course</small>
+          </div>
+          <div class="form-group invalid">
+            <label>Year Level <span>*</span></label>
+            <input value="Enter year level" readonly>
+            <small class="error-message">▲ Please select a year level</small>
+          </div>
+        </div>
+        <button class="btn btn-primary" type="button" id="backToForm">Back to Enrollment Form</button>
+      </div>
+    </section>
+
+    <!-- DESIGN 3: STUDENT MANAGEMENT TABLE -->
+    <section id="management" class="page">
+      <div class="panel table-panel">
+        <div class="table-title-row">
+          <div>
+            <p class="eyebrow">RECORDS</p>
+            <h2>Student management</h2>
+            <p class="subheading">View and manage enrolled students.</p>
+          </div>
+          <button class="btn btn-primary" id="addStudentBtn">+ Add Student</button>
+        </div>
+
+        <div class="table-tools">
+          <input type="search" id="searchInput" placeholder="⌕ Search students..." aria-label="Search students">
+          <span id="recordCount" class="record-count">0 students</span>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>NAME</th>
+                <th>EMAIL</th>
+                <th>COURSE</th>
+                <th>YEAR LEVEL</th>
+                <th>ACTION</th>
+              </tr>
+            </thead>
+            <tbody id="studentTableBody"></tbody>
+          </table>
+        </div>
+        <p id="emptyMessage" class="empty-message" hidden>No student records found.</p>
+      </div>
+    </section>
+
+    <!-- DESIGN 4: SUMMARY REPORT -->
+    <section id="summary" class="page">
+      <div class="panel summary-panel">
+        <p class="eyebrow">OVERVIEW</p>
+        <h2>Student Summary Report</h2>
+        <p class="subheading">A quick view of student enrollment records.</p>
+
+        <div class="summary-cards">
+          <article class="summary-card purple">
+            <h3>Total Students</h3>
+            <strong id="totalStudents">0</strong>
+          </article>
+          <article class="summary-card green">
+            <h3>Available Courses</h3>
+            <strong id="availableCourses">4</strong>
+          </article>
+          <article class="summary-card orange">
+            <h3>1st Year Students</h3>
+            <strong id="firstYearStudents">0</strong>
+          </article>
+          <article class="summary-card blue">
+            <h3>2nd Year Students</h3>
+            <strong id="secondYearStudents">0</strong>
+          </article>
+        </div>
+
+        <div class="chart-section">
+          <h3>Students by Year Level</h3>
+          <div id="yearChart" class="year-chart"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>Student Enrollment System <span>•</span> Demo project</footer>
+  <script src="script.js"></script>
+</body>
+</html>
