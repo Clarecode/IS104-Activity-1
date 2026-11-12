@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Enrolment System</title><link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="topbar"><a class="brand" href="#"><span class="mark">S</span> Student Portal</a>
+<nav><button class="nav active" data-page="enrol">Enrol Student</button><button class="nav" data-page="table">Student Table</button><button class="nav" data-page="summary">Summary</button></nav></header>
+<main class="container">
+<!-- FRAME 1: Enrolment form. FRAME 2: Validation messages appear after an invalid submit. -->
+<section id="enrol" class="page active"><article class="panel">
+<p class="eyebrow">NEW STUDENT RECORD</p><h1>Student enrolment</h1><p class="subtitle">Enter the student’s details to create their enrolment record.</p><hr>
+<form id="student-form" novalidate>
+<div class="section-title"><h2>Personal details</h2><span>All fields are required</span></div>
+<div class="field full"><label for="name">Name</label><input id="name" placeholder="Full name"><small id="name-error" class="error"></small></div>
+<div class="two"><div class="field"><label for="studentId">ID</label><input id="studentId" placeholder="e.g. S-2024-001"><small id="studentId-error" class="error"></small></div>
+<div class="field"><label for="age">Age</label><input id="age" type="number" placeholder="Age in years"><small id="age-error" class="error"></small></div></div>
+<div class="field full"><label for="email">Email</label><input id="email" type="email" placeholder="student@example.edu"><small id="email-error" class="error"></small></div>
+<h2 class="academic">Academic details</h2>
+<div class="two"><div class="field"><label for="course">Course</label><select id="course"><option value="">Select a course</option><option>Computer Science</option><option>Business Administration</option><option>Psychology</option><option>Engineering</option><option>Economics</option><option>Data Science</option><option>Information Systems</option></select><small id="course-error" class="error"></small></div>
+<div class="field"><label for="year">Year level</label><select id="year"><option value="">Select year level</option><option>Year 1</option><option>Year 2</option><option>Year 3</option><option>Year 4</option></select><small id="year-error" class="error"></small></div></div>
+<div class="footer"><p class="privacy">▣ &nbsp;Student details are kept private.</p><button class="primary" type="submit">Enrol student <span>→</span></button></div><p id="message" role="status"></p>
+</form></article></section>
+<!-- FRAME 3: Student table -->
+<section id="table" class="page"><article class="panel"><h1>Student Enrolment Table</h1><p class="subtitle">Review the latest student registrations below.</p>
+<div class="table-wrap"><table><thead><tr><th>ID</th><th>Age</th><th>Email</th><th>Course</th><th>Year Level</th><th>Name</th></tr></thead><tbody id="rows"></tbody></table><p id="empty" hidden>No student records yet.</p></div>
+<div class="footer"><span id="count" class="muted"></span><button id="export" class="primary">Export Table</button></div></article></section>
+<!-- FRAME 4: Summary -->
+<section id="summary" class="page"><article class="panel"><h1>Student Enrolment Summary</h1><p class="subtitle">Overview of student registrations by course and year level.</p>
+<div class="summary"><div class="summary-head"><b>Student Enrolment Summary</b><b id="based">Based on 0 student records</b></div>
+<div class="stats"><div class="stat"><span>Total Students</span><strong id="total">0</strong><p>Registered students across all courses</p></div><div class="stat"><span>Total Courses</span><strong id="courses">0</strong><p>Unique programmes enrolled</p></div><div class="stat"><span>Total Year Levels</span><strong id="years">0</strong><p id="year-desc">No year levels yet</p></div></div>
+<div class="distribution"><div class="dist-head"><b>Students per Course</b><span id="course-count">0 courses</span></div><div id="course-list" class="dist-list"></div></div>
+<div class="distribution"><div class="dist-head"><b>Year Level Distribution</b><span id="year-count">0 year levels</span></div><div id="year-list" class="dist-list"></div></div></div></article></section>
+</main><script src="js/script.js"></script></body></html>
