@@ -1,0 +1,392 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Enrollment Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="brand">
+            <div class="brand-icon">♧</div>
+            <h2>Enrollment</h2>
+        </div>
+
+        <div class="nav-heading">WORKSPACE</div>
+
+        <nav class="navigation">
+            <button class="nav-link active" data-page="enrollment">
+                <span>♧</span> Enrollment form
+            </button>
+
+            <button class="nav-link" data-page="records">
+                <span>♙</span> Student table
+            </button>
+
+            <button class="nav-link" data-page="summary">
+                <span>▥</span> Summary report
+            </button>
+        </nav>
+
+        <div class="cohort">
+            <small>CURRENT COHORT</small>
+            <h3>AY 2026–2027</h3>
+            <p>First semester</p>
+            <hr>
+            <div class="dataset">♙ &nbsp; Sample dataset</div>
+        </div>
+
+        <div class="sidebar-footer">
+            <div class="avatar">RA</div>
+            <div>
+                <strong>Registrar admin</strong>
+                <small>Student records office</small>
+            </div>
+        </div>
+
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+
+        <div class="topbar">
+            <div id="breadcrumb">Workspace &nbsp; › &nbsp; Enrollment form</div>
+            <div class="semester">▣ &nbsp; First semester · 2026–2027</div>
+        </div>
+
+        <!-- ENROLLMENT PAGE -->
+        <section id="enrollment" class="page">
+
+            <div class="page-heading">
+                <div>
+                    <h1>Student Enrollment</h1>
+                    <p>Enter student information to register.</p>
+                </div>
+            </div>
+
+            <div id="formAlert" class="form-alert hidden">
+                <strong>Submission failed</strong>
+                <p>Please correct all highlighted fields before submitting again.</p>
+            </div>
+
+            <form id="studentForm" novalidate>
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label for="studentId">ID <span>*</span></label>
+                        <input id="studentId" type="text" placeholder="STU-12345">
+                        <small class="error" id="studentIdError"></small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="studentName">Name <span>*</span></label>
+                        <input id="studentName" type="text" placeholder="Enter full name">
+                        <small class="error" id="studentNameError"></small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="studentEmail">Email <span>*</span></label>
+                        <input id="studentEmail" type="email" placeholder="name@example.com">
+                        <small class="error" id="studentEmailError"></small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="studentAge">Age <span>*</span></label>
+                        <input id="studentAge" type="number" placeholder="Enter age">
+                        <small class="error" id="studentAgeError"></small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="studentCourse">Course <span>*</span></label>
+                        <select id="studentCourse">
+                            <option value="">Select course</option>
+                            <option>Computer Science</option>
+                            <option>Business Administration</option>
+                            <option>Information Technology</option>
+                        </select>
+                        <small class="error" id="studentCourseError"></small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="studentSection">Section <span>*</span></label>
+                        <select id="studentSection">
+                            <option value="">Select section</option>
+                            <option>A</option>
+                            <option>B</option>
+                            <option>C</option>
+                        </select>
+                        <small class="error" id="studentSectionError"></small>
+                    </div>
+
+                </div>
+
+                <div class="form-actions">
+                    <button type="reset" class="btn-outline">Clear form</button>
+                    <button type="submit" class="btn-primary">Submit Enrollment</button>
+                </div>
+
+            </form>
+
+        </section>
+
+        <!-- STUDENT TABLE PAGE -->
+        <section id="records" class="page hidden">
+
+            <div class="page-heading heading-row">
+                <div>
+                    <h1>Student table</h1>
+                    <p>Search, organize, and manage your enrolled student records.</p>
+                </div>
+
+                <button class="btn-primary" id="addStudentBtn">
+                    + Enroll student
+                </button>
+            </div>
+
+            <div class="record-overview">
+                <div>♙ &nbsp; <strong id="tableTotal">0</strong> enrolled students</div>
+                <div id="tableCourses">0 courses</div>
+                <div id="tableSections">0 sections</div>
+                <small>Sample records · First semester</small>
+            </div>
+
+            <div class="table-card">
+
+                <div class="table-toolbar">
+
+                    <input type="text" id="searchInput"
+                        placeholder="⌕  Search by name, ID, or email">
+
+                    <select id="courseFilter">
+                        <option value="">All courses</option>
+                        <option>Computer Science</option>
+                        <option>Business Administration</option>
+                        <option>Information Technology</option>
+                    </select>
+
+                    <select id="sectionFilter">
+                        <option value="">All sections</option>
+                        <option>A</option>
+                        <option>B</option>
+                        <option>C</option>
+                    </select>
+
+                    <select id="ageFilter">
+                        <option value="">All ages</option>
+                        <option value="18-20">18–20</option>
+                        <option value="21-23">21–23</option>
+                        <option value="24+">24+</option>
+                    </select>
+
+                    <button class="btn-outline" id="exportStudents">
+                        ↓ Export CSV
+                    </button>
+
+                </div>
+
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th><button class="sort-btn" data-sort="id">Student ID ↕</button></th>
+                                <th><button class="sort-btn" data-sort="name">Name ↕</button></th>
+                                <th>Email</th>
+                                <th><button class="sort-btn" data-sort="age">Age ↕</button></th>
+                                <th>Course</th>
+                                <th>Section</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="studentTableBody"></tbody>
+                    </table>
+                </div>
+
+                <div class="pagination">
+                    <span id="paginationInfo">Showing 0 students</span>
+
+                    <div class="pagination-controls">
+                        <label>Rows per page</label>
+
+                        <select id="pageSize">
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                        </select>
+
+                        <button id="prevPage">‹</button>
+                        <span id="pageNumber">1</span>
+                        <button id="nextPage">›</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="table-note">
+                ⓘ &nbsp; For demonstration only. All student records are fictional.
+                <button onclick="showPage('summary')">View summary report →</button>
+            </div>
+
+        </section>
+
+        <!-- SUMMARY REPORT PAGE -->
+        <section id="summary" class="page hidden">
+
+            <div class="page-heading heading-row">
+                <div>
+                    <h1>Summary report</h1>
+                    <p>A clear view of your student cohort, courses, and section distribution.</p>
+                </div>
+
+                <button class="btn-primary" id="exportSummary">
+                    ↓ Export report
+                </button>
+            </div>
+
+            <div class="summary-filters">
+
+                <select id="summarySemester">
+                    <option>First semester · 2026–2027</option>
+                </select>
+
+                <select id="summaryCourseFilter">
+                    <option value="">All courses</option>
+                    <option>Computer Science</option>
+                    <option>Business Administration</option>
+                    <option>Information Technology</option>
+                </select>
+
+                <select id="summarySectionFilter">
+                    <option value="">All sections</option>
+                    <option>A</option>
+                    <option>B</option>
+                    <option>C</option>
+                </select>
+
+                <span class="sample-label">♙ &nbsp; Sample dataset · records</span>
+
+            </div>
+
+            <div class="summary-stats">
+
+                <div class="stat-card">
+                    <div class="stat-label">Total enrolled <span>♙</span></div>
+                    <h2 id="summaryTotal">0</h2>
+                    <small>Students in this cohort</small>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-label">Courses represented <span>♧</span></div>
+                    <h2 id="summaryCourses">0</h2>
+                    <small>Courses in this cohort</small>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-label">Sections represented <span>▦</span></div>
+                    <h2 id="summarySections">0</h2>
+                    <small>Sections in this cohort</small>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-label">Average age <span>♙</span></div>
+                    <h2 id="summaryAverage">0</h2>
+                    <small id="summaryAgeRange">Age range: —</small>
+                </div>
+
+            </div>
+
+            <div class="summary-grid">
+
+                <div class="report-card">
+                    <div class="report-title">
+                        <h3>Enrollment by course</h3>
+                        <span id="courseStudentCount">0 students</span>
+                    </div>
+
+                    <div id="courseDistribution"></div>
+
+                    <small class="report-footnote">
+                        Share of total enrollment · All courses included
+                    </small>
+                </div>
+
+                <div class="report-card">
+                    <h3>Course × section</h3>
+
+                    <div class="table-scroll">
+                        <table class="matrix-table">
+                            <thead>
+                                <tr>
+                                    <th>COURSE</th>
+                                    <th>A</th>
+                                    <th>B</th>
+                                    <th>C</th>
+                                    <th>TOTAL</th>
+                                </tr>
+                            </thead>
+                            <tbody id="matrixBody"></tbody>
+                        </table>
+                    </div>
+
+                    <small class="report-footnote" id="sectionShares"></small>
+                </div>
+
+            </div>
+
+            <div class="insights-card">
+                <div class="insights-heading">
+                    <h3>Enrollment insights</h3>
+                    <span class="complete-label">✓ Data calculated</span>
+                </div>
+
+                <div class="insights-grid">
+
+                    <div class="insight-item">
+                        <span class="insight-icon">▥</span>
+                        <div>
+                            <strong id="insightCourseTitle">Course distribution</strong>
+                            <p id="insightCourseText">Enrollment statistics will appear here.</p>
+                        </div>
+                    </div>
+
+                    <div class="insight-item">
+                        <span class="insight-icon">▦</span>
+                        <div>
+                            <strong id="insightSectionTitle">Section distribution</strong>
+                            <p id="insightSectionText">Section statistics will appear here.</p>
+                        </div>
+                    </div>
+
+                    <div class="insight-item">
+                        <span class="insight-icon">♙</span>
+                        <div>
+                            <strong>A predominantly young cohort</strong>
+                            <p id="insightAgeText">Age statistics will appear here.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="report-footer">
+                Source: Student records · Figures reflect the displayed student records.
+                <button onclick="showPage('records')">View student table →</button>
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
