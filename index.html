@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Enrollment</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">Student Enrollment</div>
+  <nav aria-label="Main navigation">
+    <button class="nav-btn" data-view="enrollment">Enrollment</button>
+    <button class="nav-btn active" data-view="students">Students</button>
+    <button class="nav-btn" data-view="summary">Summary report</button>
+  </nav>
+  <div class="academic-year">Academic year 2026–2027</div>
+</header>
+
+<main>
+  <section id="students" class="view active">
+    <div class="page-head">
+      <div><p class="eyebrow">Student records</p><h1>Student table</h1><p class="subtitle">Manage student details, courses, and enrollment in one place.</p></div>
+      <div class="actions"><button class="button" id="exportCsv">Export CSV</button><button class="button primary" id="addStudent">＋ Add student</button></div>
+    </div>
+    <div class="stats">
+      <article class="stat"><span>Total students</span><strong id="totalStudents">12</strong><small>Across all year levels</small></article>
+      <article class="stat"><span>Courses</span><strong id="totalCourses">4</strong><small>Active degree programs</small></article>
+      <article class="stat"><span>Average age</span><strong id="averageAge">20.0</strong><small>Years old</small></article>
+      <article class="stat"><span>Pending enrollment</span><strong id="pendingStudents">2</strong><small>Awaiting confirmation</small></article>
+    </div>
+    <div class="panel">
+      <div class="panel-head"><h2>All students</h2>
+        <div class="filters">
+          <input id="searchInput" placeholder="Search by name, ID, or email" aria-label="Search students">
+          <select id="courseFilter" aria-label="Filter by course"><option value="">All courses</option></select>
+          <select id="yearFilter" aria-label="Filter by year"><option value="">All year levels</option><option>1st year</option><option>2nd year</option><option>3rd year</option><option>4th year</option></select>
+          <select id="statusFilter" aria-label="Filter by status"><option value="">All statuses</option><option>Enrolled</option><option>Pending</option></select>
+        </div>
+      </div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Student ID</th><th>Name</th><th>Email</th><th>Age</th><th>Course</th><th>Year level</th><th>Status</th><th>Actions</th></tr></thead>
+        <tbody id="studentRows"></tbody>
+      </table></div>
+      <div class="table-footer"><span id="rowCount">Showing 12 of 12 students</span><div>Rows per page: 12 <button class="page-btn" id="prevPage">‹</button> <span id="pageNumber">1</span> <button class="page-btn" id="nextPage">›</button></div></div>
+    </div>
+    <p class="footer">Student Enrollment / Student records</p>
+  </section>
+
+  <section id="summary" class="view">
+    <div class="page-head">
+      <div><p class="eyebrow">Enrollment analytics</p><h1>Summary report</h1><p class="subtitle">A clear overview of your students and enrollment distribution.</p></div>
+      <div class="actions"><select id="reportYearFilter" class="button"><option>All year levels</option><option>1st year</option><option>2nd year</option><option>3rd year</option><option>4th year</option></select><button class="button primary" id="printReport">Download report</button></div>
+    </div>
+    <div class="stats">
+      <article class="stat"><span>Total students</span><strong id="reportTotal">12</strong><small>Across all courses</small></article>
+      <article class="stat"><span>Enrolled</span><strong id="reportEnrolled">10</strong><small id="reportEnrolledPct">83.3% of students</small></article>
+      <article class="stat"><span>Pending enrollment</span><strong id="reportPending">2</strong><small id="reportPendingPct">16.7% of students</small></article>
+      <article class="stat"><span>Average age</span><strong id="reportAverage">20.0</strong><small>Years old</small></article>
+    </div>
+    <div class="report-grid">
+      <div class="panel"><h2>Students by course</h2><p class="subtitle">Distribution across degree programs</p><div id="courseChart"></div></div>
+      <div class="panel"><h2>Students by year level</h2><p class="subtitle">Distribution across all four years</p><div id="yearChart" class="year-chart"></div></div>
+      <div class="panel"><h2>Enrollment status</h2><p class="subtitle" id="statusSummary"></p><div class="status-track"><div id="enrolledBar"></div></div><div class="legend"><span id="enrolledLegend"></span><span id="pendingLegend"></span></div></div>
+      <div class="panel highlight"><h2>At a glance</h2><p id="courseInsight"></p><p id="pendingInsight"></p></div>
+    </div>
+    <p class="footer">Student Enrollment / Summary report</p>
+  </section>
+
+  <section id="enrollment" class="view">
+    <div class="page-head"><div><p class="eyebrow">Student registration</p><h1>Student enrollment</h1><p class="subtitle">Enter the student's details below. All fields are required.</p></div></div>
+    <div class="form-panel">
+      <div class="form-title">Student Enrollment</div>
+      <form id="studentForm" novalidate>
+        <div class="form-grid">
+          <div class="field"><label for="studentId">ID</label><input id="studentId" name="id" placeholder="e.g. 2026-013"><small class="error" id="idError"></small></div>
+          <div class="field"><label for="age">Age</label><input id="age" name="age" type="number" min="15" max="100" placeholder="Enter age"><small class="error" id="ageError"></small></div>
+          <div class="field"><label for="name">Name</label><input id="name" name="name" placeholder="Enter full name"><small class="error" id="nameError"></small></div>
+          <div class="field"><label for="course">Course</label><select id="course" name="course"><option value="">Select a course</option><option>BS Information Technology</option><option>BS Computer Science</option><option>BS Business Administration</option><option>BS Education</option></select><small class="error" id="courseError"></small></div>
+          <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" placeholder="name@example.edu"><small class="error" id="emailError"></small></div>
+          <div class="field"><label for="year">Year Level</label><select id="year" name="year"><option value="">Select year level</option><option>1st year</option><option>2nd year</option><option>3rd year</option><option>4th year</option></select><small class="error" id="yearError"></small></div>
+        </div>
+        <div class="form-actions"><button type="reset" class="button">Clear form</button><button type="submit" class="button primary">Save student</button></div>
+      </form>
+    </div>
+    <p class="footer">Student Enrollment / Registration form</p>
+  </section>
+</main>
+
+<div class="modal" id="editModal"><div class="modal-content"><h2>Edit student</h2><form id="editForm">
+  <div class="form-grid">
+    <div class="field"><label>Student ID</label><input name="id" required></div><div class="field"><label>Age</label><input name="age" type="number" min="15" max="100" required></div>
+    <div class="field"><label>Name</label><input name="name" required></div><div class="field"><label>Course</label><select name="course"><option>BS Information Technology</option><option>BS Computer Science</option><option>BS Business Administration</option><option>BS Education</option></select></div>
+    <div class="field"><label>Email</label><input name="email" type="email" required></div><div class="field"><label>Year level</label><select name="year"><option>1st year</option><option>2nd year</option><option>3rd year</option><option>4th year</option></select></div>
+    <div class="field"><label>Status</label><select name="status"><option>Enrolled</option><option>Pending</option></select></div>
+  </div>
+  <div class="form-actions"><button type="button" class="button" id="cancelEdit">Cancel</button><button class="button primary">Save changes</button></div>
+</form></div></div>
+<div id="toast" class="toast" role="status"></div>
+<script src="script.js"></script>
+</body></html>
