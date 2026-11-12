@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Management</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">Student Enrollment</div>
+      <nav class="nav">
+        <button class="nav-btn active" data-page="form">Studen enrollment form</button>
+        <button class="nav-btn" data-page="students">Students</button>
+        <button class="nav-btn" data-page="summary">Summary report</button>
+      </nav>
+      <div class="top-date">August 2026</div>
+    </header>
+
+    <main>
+      <!-- FORM PAGE -->
+      <section id="form" class="page active-page">
+        <div class="page-label">Form container</div>
+        <div class="form-shell">
+          <form id="studentForm" novalidate>
+            <div class="form-title">Student Enrollment</div>
+
+            <div class="form-grid">
+              <div class="field">
+                <label for="studentId">ID</label>
+                <input id="studentId" name="studentId" placeholder="STU-0001">
+                <small class="error" id="studentIdError"></small>
+              </div>
+              <div class="field">
+                <label for="age">Age</label>
+                <input id="age" name="age" type="number" placeholder="20">
+                <small class="error" id="ageError"></small>
+              </div>
+              <div class="field">
+                <label for="name">Name</label>
+                <input id="name" name="name" placeholder="Juan Dela Cruz">
+                <small class="error" id="nameError"></small>
+              </div>
+              <div class="field">
+                <label for="course">Course</label>
+                <select id="course" name="course">
+                  <option value="">Select course</option>
+                  <option>BS Information Systems</option>
+                  <option>BS Computer Science</option>
+                  <option>BS Information Technology</option>
+                  <option>BS Business Administration</option>
+                  <option>BS Accountancy</option>
+                </select>
+                <small class="error" id="courseError"></small>
+              </div>
+              <div class="field">
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" placeholder="student@email.com">
+                <small class="error" id="emailError"></small>
+              </div>
+              <div class="field">
+                <label for="year">Year Level</label>
+                <select id="year" name="year">
+                  <option value="">Select year</option>
+                  <option>1st Year</option>
+                  <option>2nd Year</option>
+                  <option>3rd Year</option>
+                  <option>4th Year</option>
+                </select>
+                <small class="error" id="yearError"></small>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="btn ghost" id="clearBtn">Clear</button>
+              <button type="submit" class="btn primary">Save student</button>
+            </div>
+            <div class="success" id="successMessage"></div>
+          </form>
+        </div>
+      </section>
+
+      <!-- STUDENTS PAGE -->
+      <section id="students" class="page">
+        <div class="content-head">
+          <div>
+            <div class="page-label">Students</div>
+            <h1>Students</h1>
+            <p>Manage and review all enrolled student records.</p>
+          </div>
+          <button class="btn dark" id="newStudentBtn">+ Add student</button>
+        </div>
+
+        <div class="table-card">
+          <div class="toolbar">
+            <div class="search-wrap">
+              <span>⌕</span>
+              <input id="searchInput" placeholder="Search by name, ID or email">
+            </div>
+            <select id="courseFilter">
+              <option value="all">All courses</option>
+              <option>BS Information Systems</option>
+              <option>BS Computer Science</option>
+              <option>BS Information Technology</option>
+              <option>BS Business Administration</option>
+              <option>BS Accountancy</option>
+            </select>
+            <select id="yearFilter">
+              <option value="all">All year levels</option>
+              <option>1st Year</option><option>2nd Year</option>
+              <option>3rd Year</option><option>4th Year</option>
+            </select>
+          </div>
+
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th><th>Name</th><th>Email</th><th>Age</th>
+                  <th>Course</th><th>Year level</th><th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="studentRows"></tbody>
+            </table>
+          </div>
+
+          <div class="table-foot">
+            <span id="recordCount">0 records</span>
+            <div class="pagination">
+              <button id="prevBtn">‹</button>
+              <span id="pageInfo">1 / 1</span>
+              <button id="nextBtn">›</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SUMMARY PAGE -->
+      <section id="summary" class="page">
+        <div class="content-head">
+          <div>
+            <div class="page-label">Summary report</div>
+            <h1>Summary report</h1>
+            <p>Quick overview of the current student enrollment records.</p>
+          </div>
+          <button class="btn dark" id="exportBtn">⇩ Export report</button>
+        </div>
+
+        <div class="stats">
+          <div class="stat"><span>Total students</span><strong id="totalStudents">0</strong><small>All enrolled records</small></div>
+          <div class="stat"><span>Courses</span><strong id="totalCourses">0</strong><small>Active programs</small></div>
+          <div class="stat"><span>Year levels</span><strong id="totalYears">0</strong><small>Student year groups</small></div>
+          <div class="stat"><span>Average age</span><strong id="avgAge">0.0</strong><small>Across all students</small></div>
+        </div>
+
+        <div class="report-grid">
+          <div class="report-card">
+            <div class="card-head"><strong>Enrollment by course</strong><span>Students</span></div>
+            <div id="courseChart" class="bars"></div>
+          </div>
+          <div class="report-card">
+            <div class="card-head"><strong>Enrollment by year level</strong><span>Students</span></div>
+            <div id="yearChart" class="bars"></div>
+          </div>
+        </div>
+
+        <div class="report-card">
+          <div class="card-head"><strong>Course × year split</strong><span>Current records</span></div>
+          <div class="mini-table-wrap">
+            <table class="mini-table">
+              <thead><tr><th>Course</th><th>1st</th><th>2nd</th><th>3rd</th><th>4th</th><th>Total</th></tr></thead>
+              <tbody id="summaryRows"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <script src="script.js"></script>
+</body>
+</html>
