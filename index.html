@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Enrollment System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>Student Enrollment System</h1>
+    <nav>
+      <button class="tab active" data-view="register">Register</button>
+      <button class="tab" data-view="summary">Summary Report</button>
+      <button class="tab" data-view="records">Student Records</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- REGISTER FORM -->
+    <section id="view-register" class="view active">
+      <h2 class="view-title">Student Registration</h2>
+      <div id="successMsg" class="success" hidden></div>
+
+      <form id="studentForm" novalidate>
+        <div class="field full">
+          <label for="studentId">Student ID</label>
+          <input type="text" id="studentId" name="studentId" placeholder="Enter student ID">
+          <span class="error" aria-live="polite"></span>
+        </div>
+
+        <div class="field full">
+          <label for="fullName">Full Name</label>
+          <input type="text" id="fullName" name="fullName" placeholder="Enter full name">
+          <span class="error" aria-live="polite"></span>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="Enter email">
+            <span class="error" aria-live="polite"></span>
+          </div>
+          <div class="field">
+            <label for="age">Age</label>
+            <input type="number" id="age" name="age" placeholder="Enter age" min="1" max="120">
+            <span class="error" aria-live="polite"></span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label for="course">Course</label>
+            <input type="text" id="course" name="course" placeholder="Enter course" list="courseList">
+            <datalist id="courseList"></datalist>
+            <span class="error" aria-live="polite"></span>
+          </div>
+          <div class="field">
+            <label for="year">Year Level</label>
+            <input type="text" id="year" name="year" placeholder="Enter your level" list="yearList">
+            <datalist id="yearList">
+              <option value="1st"></option>
+              <option value="2nd"></option>
+              <option value="3rd"></option>
+              <option value="4th"></option>
+            </datalist>
+            <span class="error" aria-live="polite"></span>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button type="submit" class="btn-submit">Submit</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- SUMMARY REPORT -->
+    <section id="view-summary" class="view">
+      <h2 class="view-title">Summary Report</h2>
+      <h3 class="center-title">STUDENT ENROLLMENT SYSTEM</h3>
+
+      <div class="cards" id="summaryCards"></div>
+    </section>
+
+    <!-- STUDENT RECORDS -->
+    <section id="view-records" class="view">
+      <h2 class="view-title">Student Records</h2>
+      <div class="records-wrap">
+        <table class="records">
+          <thead>
+            <tr>
+              <th>Student ID</th>
+              <th>Full Name</th>
+              <th>Email</th>
+              <th>Course</th>
+              <th>Year</th>
+            </tr>
+          </thead>
+          <tbody id="recordsBody"></tbody>
+        </table>
+        <p id="emptyMsg" class="empty" hidden>No student records yet.</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
