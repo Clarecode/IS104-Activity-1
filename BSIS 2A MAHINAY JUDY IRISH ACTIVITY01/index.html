@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Enrollment System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand-mark">SE</div>
+    <div>
+      <h1>Student Enrollment System</h1>
+      <p>Manage student records and enrollment information</p>
+    </div>
+  </header>
+
+  <main class="dashboard">
+    <!-- TABLE / SCREEN 1: ENROLLMENT FORM -->
+    <section class="panel enrollment-panel">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">ENROLLMENT</p>
+          <h2>Student Enrollment Form</h2>
+        </div>
+        <span class="step-label">New student</span>
+      </div>
+
+      <form id="enrollmentForm" novalidate>
+        <div class="form-grid">
+          <div class="field">
+            <label for="studentId">Student ID <span>*</span></label>
+            <input id="studentId" name="studentId" placeholder="Enter student ID" required>
+            <small class="error" id="studentIdError"></small>
+          </div>
+          <div class="field">
+            <label for="fullName">Full Name <span>*</span></label>
+            <input id="fullName" name="fullName" placeholder="Enter full name" required>
+            <small class="error" id="fullNameError"></small>
+          </div>
+          <div class="field">
+            <label for="email">Email <span>*</span></label>
+            <input id="email" name="email" type="email" placeholder="Enter email" required>
+            <small class="error" id="emailError"></small>
+          </div>
+          <div class="field">
+            <label for="age">Age <span>*</span></label>
+            <input id="age" name="age" type="number" min="15" max="100" placeholder="Enter age" required>
+            <small class="error" id="ageError"></small>
+          </div>
+          <div class="field">
+            <label for="course">Course <span>*</span></label>
+            <select id="course" name="course" required>
+              <option value="">Select course</option>
+              <option>BS Agriculture</option>
+              <option>BS Information Technology</option>
+              <option>BS Computer Science</option>
+              <option>BS Education</option>
+              <option>BS Business Administration</option>
+            </select>
+            <small class="error" id="courseError"></small>
+          </div>
+          <div class="field">
+            <label for="yearLevel">Year Level <span>*</span></label>
+            <select id="yearLevel" name="yearLevel" required>
+              <option value="">Select year level</option>
+              <option>1st Year</option>
+              <option>2nd Year</option>
+              <option>3rd Year</option>
+              <option>4th Year</option>
+              <option>5th Year</option>
+            </select>
+            <small class="error" id="yearLevelError"></small>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button class="primary-btn" type="submit">Submit Enrollment</button>
+          <button class="secondary-btn" type="reset" id="clearBtn">Clear</button>
+        </div>
+        <p id="formMessage" class="form-message" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <!-- TABLE / SCREEN 2: VALIDATION ERROR STATE -->
+    <section class="panel error-preview">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">FORM VALIDATION</p>
+          <h2>Required field errors</h2>
+        </div>
+        <span class="status-pill">Error state</span>
+      </div>
+      <p class="muted">The form displays a message when a required field is missing or invalid.</p>
+      <div class="error-demo">
+        <label>Student ID <span>*</span></label>
+        <input class="invalid-input" placeholder="Enter student ID" disabled>
+        <small>▲ Required</small>
+        <label>Full Name <span>*</span></label>
+        <input class="invalid-input" placeholder="Enter full name" disabled>
+        <small>▲ Required</small>
+        <label>Email <span>*</span></label>
+        <input class="invalid-input" placeholder="Enter email" disabled>
+        <small>▲ Enter a valid email address</small>
+        <label>Age <span>*</span></label>
+        <input class="invalid-input" placeholder="Enter age" disabled>
+        <small>▲ Must be a valid age (15–100)</small>
+        <label>Course <span>*</span></label>
+        <input class="invalid-input" placeholder="Select course" disabled>
+        <small>▲ Please select a course</small>
+        <label>Year Level <span>*</span></label>
+        <input class="invalid-input" placeholder="Select year level" disabled>
+        <small>▲ Please select your year level</small>
+      </div>
+    </section>
+
+    <!-- TABLE / SCREEN 3: STUDENT TABLE -->
+    <section class="panel student-panel">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">RECORDS</p>
+          <h2>Student Management</h2>
+        </div>
+        <span class="count-pill" id="recordCount">0 records</span>
+      </div>
+      <div class="table-tools">
+        <input id="searchInput" type="search" placeholder="⌕  Search students by ID, name, email or course...">
+        <button class="secondary-btn" id="exportBtn" type="button">Export CSV</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Student ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Age</th>
+              <th>Course</th>
+              <th>Year Level</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="studentTableBody">
+            <tr class="empty-row"><td colspan="7">No student records yet. Add a student using the enrollment form.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- TABLE / SCREEN 4: SUMMARY REPORT -->
+    <section class="panel summary-panel">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">OVERVIEW</p>
+          <h2>Student Summary Report</h2>
+        </div>
+        <span class="report-icon">▥</span>
+      </div>
+      <div class="stats-grid">
+        <article class="stat-card purple">
+          <span>Total Students</span>
+          <strong id="totalStudents">0</strong>
+        </article>
+        <article class="stat-card green">
+          <span>Available Courses</span>
+          <strong id="totalCourses">0</strong>
+        </article>
+        <article class="stat-card yellow">
+          <span>1st Year Students</span>
+          <strong id="year1Count">0</strong>
+        </article>
+        <article class="stat-card blue">
+          <span>2nd Year Students</span>
+          <strong id="year2Count">0</strong>
+        </article>
+      </div>
+      <div class="report-chart">
+        <h3>Students by Year Level</h3>
+        <div id="yearBreakdown"></div>
+      </div>
+      <div class="course-summary">
+        <h3>Students by Course</h3>
+        <div id="courseBreakdown" class="course-breakdown"><p class="muted">No course data available.</p></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>Student Enrollment System <span>•</span> Records are saved in this browser</footer>
+  <script src="script.js"></script>
+</body>
+</html>
