@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Student enrollment form, records table, validation example, and summary report.">
+  <title>Student Enrollment System</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand-mark">SE</div>
+    <div>
+      <h1>Student Enrollment System</h1>
+      <p>Academic Year 2025–2026</p>
+    </div>
+  </header>
+
+  <main class="dashboard">
+    <section class="panel form-panel" aria-labelledby="form-title">
+      <div class="section-heading">
+        <div><span class="eyebrow">REGISTRATION</span><h2 id="form-title">Student Enrollment Form</h2></div>
+        <span class="step-tag">New student</span>
+      </div>
+      <form id="enrollmentForm" novalidate>
+        <div class="form-grid">
+          <label>Student ID
+            <input id="studentId" name="studentId" placeholder="Enter student ID" autocomplete="off">
+            <small class="error" id="studentIdError"></small>
+          </label>
+          <label>Student Name
+            <input id="studentName" name="studentName" placeholder="Enter full name" autocomplete="name">
+            <small class="error" id="studentNameError"></small>
+          </label>
+          <label>Email Address
+            <input id="email" name="email" type="email" placeholder="Enter email address" autocomplete="email">
+            <small class="error" id="emailError"></small>
+          </label>
+          <label>Age
+            <input id="age" name="age" type="number" min="1" max="100" placeholder="Enter age">
+            <small class="error" id="ageError"></small>
+          </label>
+          <label>Course
+            <select id="course" name="course">
+              <option value="">Select course</option>
+              <option value="BSIS">BSIS</option>
+              <option value="BSIT">BSIT</option>
+              <option value="BSCS">BSCS</option>
+              <option value="BSED">BSED</option>
+              <option value="BSBA">BSBA</option>
+            </select>
+            <small class="error" id="courseError"></small>
+          </label>
+          <label>Year Level
+            <select id="yearLevel" name="yearLevel">
+              <option value="">Select year level</option>
+              <option value="1st year">1st year</option>
+              <option value="2nd year">2nd year</option>
+              <option value="3rd year">3rd year</option>
+              <option value="4th year">4th year</option>
+            </select>
+            <small class="error" id="yearLevelError"></small>
+          </label>
+        </div>
+        <div class="form-actions">
+          <button class="primary-button" type="submit">Submit Enrollment <span aria-hidden="true">→</span></button>
+          <button class="text-button" type="reset" id="clearButton">Clear form</button>
+        </div>
+        <p id="formMessage" class="form-message" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <section class="panel error-panel" aria-labelledby="error-title">
+      <div class="section-heading">
+        <div><span class="eyebrow">VALIDATION PREVIEW</span><h2 id="error-title">Student Enrollment Form – Error State</h2></div>
+        <span class="status-dot">Example</span>
+      </div>
+      <p class="muted">This section demonstrates how the form displays errors when required fields are missing or invalid.</p>
+      <form id="errorDemoForm" novalidate>
+        <div class="demo-fields">
+          <label>Student ID<input placeholder="Enter student ID" aria-invalid="true"><small class="error">Please enter your student ID.</small></label>
+          <label>Student Name<input placeholder="Enter full name" aria-invalid="true"><small class="error">Please enter your full name.</small></label>
+          <label>Email Address<input type="email" placeholder="Enter email address" aria-invalid="true"><small class="error">Please enter a valid email address.</small></label>
+          <label>Age<input type="number" placeholder="Enter age" aria-invalid="true"><small class="error">Please enter a valid age.</small></label>
+          <label>Course<select aria-invalid="true"><option value="">Select course</option></select><small class="error">Please select your course.</small></label>
+          <label>Year Level<select aria-invalid="true"><option value="">Select year level</option></select><small class="error">Please select your year level.</small></label>
+        </div>
+      </form>
+    </section>
+
+    <section class="panel table-panel" aria-labelledby="records-title">
+      <div class="section-heading">
+        <div><span class="eyebrow">ENROLLMENT DATABASE</span><h2 id="records-title">Student Records</h2></div>
+        <span class="record-count" id="recordCount">3 records</span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Student ID</th><th>Student Name</th><th>Email Address</th><th>Age</th><th>Course</th><th>Year Level</th><th>Action</th></tr></thead>
+          <tbody id="studentTableBody">
+            <tr><td>2026-001</td><td>Jany Gomez</td><td>gomezjany23@gmail.com</td><td>19</td><td><span class="course-pill">BSIS</span></td><td>1st year</td><td><button class="delete-button" type="button" aria-label="Delete Jany Gomez">×</button></td></tr>
+            <tr><td>2026-002</td><td>Airen Dee</td><td>deeairen@gmail.com</td><td>20</td><td><span class="course-pill">BSIS</span></td><td>1st year</td><td><button class="delete-button" type="button" aria-label="Delete Airen Dee">×</button></td></tr>
+            <tr><td>2026-003</td><td>Caryn Losal</td><td>carynnlosal@gmail.com</td><td>18</td><td><span class="course-pill">BSIS</span></td><td>1st year</td><td><button class="delete-button" type="button" aria-label="Delete Caryn Losal">×</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Student records are updated automatically when a valid enrollment is submitted.</p>
+    </section>
+
+    <section class="panel summary-panel" aria-labelledby="summary-title">
+      <div class="section-heading">
+        <div><span class="eyebrow">AT A GLANCE</span><h2 id="summary-title">Summary Report</h2><p class="muted">Academic Year 2025–2026</p></div>
+        <span class="report-icon">▥</span>
+      </div>
+      <div class="stats-grid">
+        <article class="stat-card stat-total"><span>Total Students</span><strong id="totalStudents">3</strong><small>All student records</small></article>
+        <article class="stat-card stat-enrolled"><span>Enrolled Students</span><strong id="enrolledStudents">2</strong><small>Currently enrolled</small></article>
+        <article class="stat-card stat-course"><span>Courses</span><strong id="courseCount">1</strong><small>Unique courses</small></article>
+        <article class="stat-card stat-year"><span>Year Levels</span><strong id="yearCount">1</strong><small>Unique year levels</small></article>
+      </div>
+      <div class="summary-footer"><span class="live-indicator"></span> Live report · updates with student records</div>
+    </section>
+  </main>
+  <footer>© 2026 Student Enrollment System <span>Designed for academic use</span></footer>
+</body>
+</html>
