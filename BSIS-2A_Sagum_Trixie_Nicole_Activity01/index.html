@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Enrollment System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <header>
+        <h3>Student Enrollment</h3>
+        <nav>
+            <button onclick="showPage('form')">Enrollment Form</button>
+            <button onclick="showPage('students')">Student Table</button>
+            <button onclick="showPage('summary')">Summary Report</button>
+        </nav>
+    </header>
+
+    <!-- ENROLLMENT FORM -->
+    <section id="form" class="page">
+        <h1>Student Enrollment</h1>
+        <p>Fill in the required information below to register</p>
+
+        <form id="enrollmentForm">
+            <input type="hidden" id="editIndex">
+
+            <div class="form-grid">
+                <div>
+                    <label>ID</label>
+                    <input type="text" id="studentId" maxlength="8">
+                    <small id="idError"></small>
+                </div>
+
+                <div>
+                    <label>Name</label>
+                    <input type="text" id="name">
+                    <small id="nameError"></small>
+                </div>
+
+                <div>
+                    <label>Email</label>
+                    <input type="email" id="email">
+                    <small id="emailError"></small>
+                </div>
+
+                <div>
+                    <label>Age</label>
+                    <input type="number" id="age">
+                    <small id="ageError"></small>
+                </div>
+
+                <div>
+                    <label>Course</label>
+                    <select id="course">
+                        <option value="">Select Course</option>
+                        <option>Computer Science</option>
+                        <option>Information Technology</option>
+                        <option>Business Administration</option>
+                        <option>Education</option>
+                    </select>
+                    <small id="courseError"></small>
+                </div>
+
+                <div>
+                    <label>Year Level</label>
+                    <select id="year">
+                        <option value="">Select Year Level</option>
+                        <option>Year 1</option>
+                        <option>Year 2</option>
+                        <option>Year 3</option>
+                        <option>Year 4</option>
+                    </select>
+                    <small id="yearError"></small>
+                </div>
+            </div>
+
+            <div class="buttons">
+                <button type="submit" class="submit">Submit enrollment</button>
+                <button type="reset" class="clear">Clear Form</button>
+            </div>
+        </form>
+    </section>
+
+    <!-- STUDENT TABLE -->
+    <section id="students" class="page hidden">
+        <h1>Student Table</h1>
+        <p>View and manage student enrollment records.</p>
+
+        <div class="toolbar">
+            <input type="text" id="search" placeholder="Search by ID, name, or email">
+            <button onclick="showPage('form')">+ Add student</button>
+            <button onclick="exportCSV()">Export</button>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Age</th>
+                        <th>Course</th>
+                        <th>Year Level</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="studentList"></tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- SUMMARY REPORT -->
+    <section id="summary" class="page hidden">
+        <h1>Summary Report</h1>
+        <p>Enrollment overview for all courses and year levels.</p>
+
+        <div class="summary-grid">
+            <div class="card">
+                <p>Total students</p>
+                <h2 id="totalStudents">0</h2>
+            </div>
+
+            <div class="card">
+                <p>Courses represented</p>
+                <h2 id="totalCourses">0</h2>
+            </div>
+
+            <div class="card">
+                <p>Average age</p>
+                <h2 id="averageAge">0</h2>
+            </div>
+
+            <div class="card">
+                <p>First-year students</p>
+                <h2 id="firstYear">0</h2>
+            </div>
+        </div>
+
+        <h3>Enrollment by course</h3>
+        <div id="courseReport"></div>
+
+        <h3>Enrollment by year level</h3>
+        <div id="yearReport"></div>
+    </section>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
