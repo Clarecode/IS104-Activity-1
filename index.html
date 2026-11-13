@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Enrollment System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <header class="header">
+        <h1>Student Enrollment</h1>
+
+        <nav>
+            <span class="brand">♧ Student Enrollment</span>
+            <div class="nav-links">
+                <button class="nav-btn active" data-page="enrollment">Enrollment</button>
+                <button class="nav-btn" data-page="students">Student table</button>
+                <button class="nav-btn" data-page="report">Summary report</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ENROLLMENT PAGE -->
+    <section id="enrollment" class="page active-page">
+
+        <h2>Enrollment Form</h2>
+        <p class="subtitle">Enter student information to enroll.</p>
+
+        <form id="enrollmentForm">
+
+            <div class="form-grid">
+
+                <div class="field">
+                    <label>Student ID *</label>
+                    <textarea id="studentId" placeholder="Value"></textarea>
+                    <small id="studentIdError"></small>
+                </div>
+
+                <div class="field">
+                    <label>Name *</label>
+                    <textarea id="studentName" placeholder="Value"></textarea>
+                    <small id="studentNameError"></small>
+                </div>
+
+                <div class="field">
+                    <label>Email *</label>
+                    <textarea id="studentEmail" placeholder="Value"></textarea>
+                    <small id="studentEmailError"></small>
+                </div>
+
+                <div class="field">
+                    <label>Age *</label>
+                    <textarea id="studentAge" placeholder="Value"></textarea>
+                    <small id="studentAgeError"></small>
+                </div>
+
+                <div class="field">
+                    <label>Course *</label>
+                    <select id="studentCourse">
+                        <option value="">Select course</option>
+                        <option>BS Information System</option>
+                        <option>BS Information Technology</option>
+                        <option>BS Computer Science</option>
+                        <option>BS Computer Engineering</option>
+                    </select>
+                    <small id="studentCourseError"></small>
+                </div>
+
+                <div class="field">
+                    <label>Section *</label>
+                    <select id="studentSection">
+                        <option value="">Select section</option>
+                        <option>A</option>
+                        <option>B</option>
+                        <option>C</option>
+                        <option>D</option>
+                    </select>
+                    <small id="studentSectionError"></small>
+                </div>
+
+            </div>
+
+            <div class="form-actions">
+                <button type="reset" class="secondary-btn">Clear form</button>
+                <button type="submit" class="primary-btn">Enroll student</button>
+            </div>
+
+        </form>
+    </section>
+
+    <!-- STUDENT TABLE PAGE -->
+    <section id="students" class="page">
+
+        <div class="section-heading">
+            <div>
+                <h2>Student table</h2>
+                <p class="subtitle">Review and manage your enrolled student records.</p>
+            </div>
+            <button class="primary-btn" onclick="showPage('enrollment')">
+                + Enroll student
+            </button>
+        </div>
+
+        <div class="filters">
+            <input type="text" id="searchInput"
+                   placeholder="Search ID, name or email">
+
+            <select id="courseFilter">
+                <option value="">All courses</option>
+                <option>BS Information System</option>
+                <option>BS Information Technology</option>
+                <option>BS Computer Science</option>
+                <option>BS Computer Engineering</option>
+            </select>
+
+            <select id="sectionFilter">
+                <option value="">All sections</option>
+                <option>A</option>
+                <option>B</option>
+                <option>C</option>
+                <option>D</option>
+            </select>
+
+            <button class="secondary-btn" id="exportBtn">↓ Export CSV</button>
+        </div>
+
+        <div class="table-info">
+            <strong>All students</strong>
+            <span id="studentCount">0 students</span>
+        </div>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Age</th>
+                        <th>Course</th>
+                        <th>Section</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="studentTableBody"></tbody>
+            </table>
+        </div>
+
+        <p id="emptyMessage" class="empty-message" hidden>
+            No student records found.
+        </p>
+
+    </section>
+
+    <!-- SUMMARY REPORT PAGE -->
+    <section id="report" class="page">
+
+        <div class="section-heading">
+            <div>
+                <h2>Summary report</h2>
+                <p class="subtitle">
+                    A clear overview of student enrollment across courses and sections.
+                </p>
+            </div>
+            <button class="primary-btn" id="downloadReport">
+                ↓ Download report
+            </button>
+        </div>
+
+        <p class="report-date">▦ All enrolled students · All courses and sections</p>
+
+        <div class="stats-grid">
+
+            <div class="stat-card">
+                <span>Total students</span>
+                <h3 id="totalStudents">0</h3>
+                <small>Unique enrolled records</small>
+            </div>
+
+            <div class="stat-card">
+                <span>Courses</span>
+                <h3 id="totalCourses">0</h3>
+                <small>With enrolled students</small>
+            </div>
+
+            <div class="stat-card">
+                <span>Course sections</span>
+                <h3 id="totalSections">0</h3>
+                <small>Assigned sections</small>
+            </div>
+
+            <div class="stat-card">
+                <span>Average section size</span>
+                <h3 id="averageSize">0</h3>
+                <small>Students per course section</small>
+            </div>
+
+        </div>
+
+        <h3 class="table-title">Enrollment by course and section</h3>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Course</th>
+                        <th>Section A</th>
+                        <th>Section B</th>
+                        <th>Other sections</th>
+                        <th>Total</th>
+                        <th>Share</th>
+                    </tr>
+                </thead>
+                <tbody id="reportTableBody"></tbody>
+            </table>
+        </div>
+
+        <div class="report-bottom">
+            <div class="distribution-card">
+                <h4>Section distribution</h4>
+                <div class="distribution-bar">
+                    <div id="sectionABar"></div>
+                    <div id="sectionBBar"></div>
+                </div>
+                <div class="distribution-labels">
+                    <span id="sectionALabel">A: 0 students</span>
+                    <span id="sectionBLabel">B: 0 students</span>
+                </div>
+            </div>
+
+            <div class="glance-card">
+                <h4>At a glance</h4>
+                <p id="glanceText">
+                    Enrollment statistics will appear here.
+                </p>
+            </div>
+        </div>
+
+    </section>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
