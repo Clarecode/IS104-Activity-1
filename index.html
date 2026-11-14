@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Enrollment System</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#4f46e5',
+                            600: '#4338ca',
+                            700: '#3730a3',
+                            purple: '#4f46e5'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body class="min-h-screen py-8 px-4 flex items-center justify-center">
+
+    <!-- MAIN WRAPPER CONTAINER -->
+    <div class="w-full max-w-2xl app-card overflow-hidden border-2 border-gray-400">
+
+        <!-- UNIFIED TOP HEADER BAR -->
+        <div class="app-header py-6 text-center text-white shadow-md">
+            <h1 class="text-3xl font-extrabold tracking-wide">Student Enrollment Form</h1>
+        </div>
+
+        <!-- MAIN BODY CONTENT AREA -->
+        <div class="p-6 md:p-8">
+
+            <!-- PAGE 1 & 2: ENROLLMENT FORM & ERROR STATE -->
+            <div id="page-form" class="space-y-4">
+                <form id="enrollmentForm" novalidate onsubmit="handleFormSubmit(event)">
+                    
+                    <!-- Student ID Field -->
+                    <div class="mb-3">
+                        <label class="block text-gray-800 font-semibold mb-1 text-sm">Student ID <span class="text-red-600">*</span></label>
+                        <input type="text" id="studentId" class="form-input" placeholder="Enter Student ID">
+                        <div id="error-studentId" class="error-message hidden">Student ID is required.</div>
+                    </div>
+
+                    <!-- Email Address Field -->
+                    <div class="mb-3">
+                        <label class="block text-gray-800 font-semibold mb-1 text-sm">Email Address <span class="text-red-600">*</span></label>
+                        <input type="email" id="email" class="form-input" placeholder="Enter Email address">
+                        <div id="error-email" class="error-message hidden">Please enter valid email address</div>
+                    </div>
+
+                    <!-- Course Dropdown -->
+                    <div class="mb-3">
+                        <label class="block text-gray-800 font-semibold mb-1 text-sm">Course <span class="text-red-600">*</span></label>
+                        <select id="course" class="form-input text-gray-600">
+                            <option value="">Select Course</option>
+                            <option value="BSIS">BSIS</option>
+                            <option value="BSCS">BSCS</option>
+                            <option value="BSIT">BSIT</option>
+                        </select>
+                        <div id="error-course" class="error-message hidden">Please select a course.</div>
+                    </div>
+
+                    <!-- Full Name Field -->
+                    <div class="mb-3">
+                        <label class="block text-gray-800 font-semibold mb-1 text-sm">Full Name <span class="text-red-600">*</span></label>
+                        <input type="text" id="fullName" class="form-input" placeholder="Enter Full Name">
+                        <div id="error-fullName" class="error-message hidden">Full Name is required.</div>
+                    </div>
+
+                    <!-- Age Field -->
+                    <div class="mb-3">
+                        <label class="block text-gray-800 font-semibold mb-1 text-sm">Age <span class="text-red-600">*</span></label>
+                        <input type="number" id="age" class="form-input" placeholder="Enter Age">
+                        <div id="error-age" class="error-message hidden">Age is required.</div>
+                    </div>
+
+                    <!-- Year Level Dropdown -->
+                    <div class="mb-6">
+                        <label class="block text-gray-800 font-semibold mb-1 text-sm">Year Level <span class="text-red-600">*</span></label>
+                        <select id="yearLevel" class="form-input text-gray-600">
+                            <option value="">Select Year Level</option>
+                            <option value="1st Year">1st Year</option>
+                            <option value="2nd Year">2nd Year</option>
+                            <option value="3rd Year">3rd Year</option>
+                            <option value="4th Year">4th Year</option>
+                        </select>
+                        <div id="error-yearLevel" class="error-message hidden">Please select a year level.</div>
+                    </div>
+
+                    <!-- Form Action Buttons -->
+                    <div class="flex flex-col sm:flex-row justify-between items-center gap-4 pt-2">
+                        <button type="submit" class="btn-purple w-full sm:w-auto">Submit Enrollment</button>
+                        <div class="flex gap-2 w-full sm:w-auto">
+                            <button type="button" onclick="clearForm()" class="btn-secondary w-full sm:w-auto">Clear Form</button>
+                            <button type="button" onclick="navigateTo('records')" class="btn-secondary w-full sm:w-auto">View Student Records</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- PAGE 3: STUDENTS RECORD TABLE -->
+            <div id="page-records" class="hidden space-y-5">
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-900">Students Record</h2>
+                    <p class="text-gray-600 text-sm">Manage enrolled students and their information.</p>
+                </div>
+
+                <!-- Search Input -->
+                <div class="w-full sm:w-72">
+                    <input type="text" id="searchInput" oninput="renderTable()" class="form-input text-sm" placeholder="Search Students......">
+                </div>
+
+                <!-- Table Container -->
+                <div class="overflow-x-auto">
+                    <table class="w-full custom-table text-left">
+                        <thead>
+                            <tr>
+                                <th>Student ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Age</th>
+                                <th>Course</th>
+                                <th>Year Level</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentTableBody">
+                            <!-- Populated dynamically via JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Page Navigation Buttons -->
+                <div class="flex justify-between items-center pt-4">
+                    <button onclick="navigateTo('form')" class="btn-secondary">Back</button>
+                    <button onclick="navigateTo('summary')" class="btn-purple">View Summary Report</button>
+                </div>
+            </div>
+
+            <!-- PAGE 4: STUDENT SUMMARY REPORT -->
+            <div id="page-summary" class="hidden space-y-6">
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-900">Enrollment Summary Report</h2>
+                    <p class="text-gray-600 text-sm">Overview of student enrollment statistics</p>
+                </div>
+
+                <!-- Metrics Grid -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="metric-box">
+                        <p class="text-xs font-bold text-gray-800 uppercase tracking-wider">Total Students</p>
+                        <p id="stat-total" class="text-3xl font-extrabold text-indigo-900 mt-2">0</p>
+                    </div>
+                    <div class="metric-box">
+                        <p class="text-xs font-bold text-gray-800 uppercase tracking-wider">Courses Offered</p>
+                        <p id="stat-courses" class="text-3xl font-extrabold text-indigo-900 mt-2">3</p>
+                    </div>
+                    <div class="metric-box">
+                        <p class="text-xs font-bold text-gray-800 uppercase tracking-wider">First Year Students</p>
+                        <p id="stat-firstyear" class="text-3xl font-extrabold text-indigo-900 mt-2">0</p>
+                    </div>
+                    <div class="metric-box">
+                        <p class="text-xs font-bold text-gray-800 uppercase tracking-wider">Second Year Students</p>
+                        <p id="stat-secondyear" class="text-3xl font-extrabold text-indigo-900 mt-2">0</p>
+                    </div>
+                </div>
+
+                <!-- Horizontal Bar Breakdown Chart -->
+                <div class="space-y-4 pt-2">
+                    <h3 class="font-bold text-indigo-900 text-base">Student by Courses</h3>
+                    
+                    <div class="space-y-3">
+                        <!-- BSIS Bar -->
+                        <div class="flex items-center gap-3">
+                            <span class="w-12 text-sm font-bold text-indigo-900">BSIS</span>
+                            <div class="flex-1 bg-gray-300 rounded-lg h-8 overflow-hidden relative">
+                                <div id="bar-bsis" class="bg-indigo-900 h-full rounded-lg transition-all duration-500 flex items-center justify-end pr-2 text-white font-bold text-xs" style="width: 0%"></div>
+                            </div>
+                            <span id="count-bsis" class="w-8 text-sm font-bold text-indigo-950">0</span>
+                        </div>
+
+                        <!-- BSCS Bar -->
+                        <div class="flex items-center gap-3">
+                            <span class="w-12 text-sm font-bold text-indigo-900">BSCS</span>
+                            <div class="flex-1 bg-gray-300 rounded-lg h-8 overflow-hidden relative">
+                                <div id="bar-bscs" class="bg-indigo-700 h-full rounded-lg transition-all duration-500 flex items-center justify-end pr-2 text-white font-bold text-xs" style="width: 0%"></div>
+                            </div>
+                            <span id="count-bscs" class="w-8 text-sm font-bold text-indigo-950">0</span>
+                        </div>
+
+                        <!-- BSIT Bar -->
+                        <div class="flex items-center gap-3">
+                            <span class="w-12 text-sm font-bold text-indigo-900">BSIT</span>
+                            <div class="flex-1 bg-gray-300 rounded-lg h-8 overflow-hidden relative">
+                                <div id="bar-bsit" class="bg-indigo-500 h-full rounded-lg transition-all duration-500 flex items-center justify-end pr-2 text-white font-bold text-xs" style="width: 0%"></div>
+                            </div>
+                            <span id="count-bsit" class="w-8 text-sm font-bold text-indigo-950">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Back to Records Button -->
+                <div class="pt-4">
+                    <button onclick="navigateTo('records')" class="btn-secondary">Back to Records</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT APP LOGIC -->
+    <script>
+        // Default Mock Data matching Screenshot 3 & 4
+        let students = [
+            { id: "2026-001", name: "Aliza Holmes", email: "alizaholmes@gmail.com", age: 19, course: "BSIS", yearLevel: "2nd Year" },
+            { id: "2026-002", name: "Tiffany Mendoza", email: "tiffanymendoza@gmail.com", age: 18, course: "BSCS", yearLevel: "2nd Year" },
+            { id: "2026-003", name: "Maki Yoshio", email: "makiyoshio@gmail.com", age: 19, course: "BSIS", yearLevel: "2nd Year" },
+            { id: "2026-004", name: "Hashikawa Lee", email: "hashikawalee@gmail.com", age: 19, course: "BSIT", yearLevel: "2nd Year" },
+            { id: "2026-005", name: "Jacob Daniel", email: "jacobdaniel@gmail.com", age: 19, course: "BSIS", yearLevel: "2nd Year" },
+            { id: "25-1-1042", name: "Zhu Nash Adri Shinsuke Libot", email: "shinsukelibot@gamil.com", age: 19, course: "IT", yearLevel: "1st Year" }
+            
+
+            
+        
+        ];
+
+        // Page Navigation Logic
+        function navigateTo(pageId) {
+            document.getElementById('page-form').classList.add('hidden');
+            document.getElementById('page-records').classList.add('hidden');
+            document.getElementById('page-summary').classList.add('hidden');
+
+            if (pageId === 'form') {
+                document.getElementById('page-form').classList.remove('hidden');
+            } else if (pageId === 'records') {
+                renderTable();
+                document.getElementById('page-records').classList.remove('hidden');
+            } else if (pageId === 'summary') {
+                renderSummary();
+                document.getElementById('page-summary').classList.remove('hidden');
+            }
+        }
+
+        // Form Validation & Submission
+        function handleFormSubmit(event) {
+            event.preventDefault();
+
+            const studentIdInput = document.getElementById('studentId');
+            const emailInput = document.getElementById('email');
+            const courseInput = document.getElementById('course');
+            const fullNameInput = document.getElementById('fullName');
+            const ageInput = document.getElementById('age');
+            const yearLevelInput = document.getElementById('yearLevel');
+
+            let isValid = true;
+
+            // Reset Errors
+            resetFieldErrors();
+
+            // Validate Student ID
+            if (!studentIdInput.value.trim()) {
+                showFieldError('studentId', 'Student ID is required.');
+                isValid = false;
+            }
+
+            // Validate Email
+            const emailValue = emailInput.value.trim();
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailValue || !emailRegex.test(emailValue)) {
+                showFieldError('email', 'Please enter valid email address');
+                isValid = false;
+            }
+
+            // Validate Course
+            if (!courseInput.value) {
+                showFieldError('course', 'Please select a course.');
+                isValid = false;
+            }
+
+            // Validate Full Name
+            if (!fullNameInput.value.trim()) {
+                showFieldError('fullName', 'Full Name is required.');
+                isValid = false;
+            }
+
+            // Validate Age
+            if (!ageInput.value || ageInput.value <= 0) {
+                showFieldError('age', 'Age is required.');
+                isValid = false;
+            }
+
+            // Validate Year Level
+            if (!yearLevelInput.value) {
+                showFieldError('yearLevel', 'Please select a year level.');
+                isValid = false;
+            }
+
+            // If valid, save student and navigate to records
+            if (isValid) {
+                const newStudent = {
+                    id: studentIdInput.value.trim(),
+                    name: fullNameInput.value.trim(),
+                    email: emailValue,
+                    age: parseInt(ageInput.value),
+                    course: courseInput.value,
+                    yearLevel: yearLevelInput.value
+                };
+
+                students.push(newStudent);
+                clearForm();
+                navigateTo('records');
+            }
+        }
+
+        // Show Field Specific Error Highlight
+        function showFieldError(fieldId, message) {
+            const inputElem = document.getElementById(fieldId);
+            const errorElem = document.getElementById(`error-${fieldId}`);
+            
+            if (inputElem) inputElem.classList.add('input-error');
+            if (errorElem) {
+                errorElem.innerText = message;
+                errorElem.classList.remove('hidden');
+            }
+        }
+
+        // Reset All Field Error Highlights
+        function resetFieldErrors() {
+            const fields = ['studentId', 'email', 'course', 'fullName', 'age', 'yearLevel'];
+            fields.forEach(field => {
+                const inputElem = document.getElementById(field);
+                const errorElem = document.getElementById(`error-${field}`);
+                if (inputElem) inputElem.classList.remove('input-error');
+                if (errorElem) errorElem.classList.add('hidden');
+            });
+        }
+
+        // Clear Form Inputs
+        function clearForm() {
+            document.getElementById('enrollmentForm').reset();
+            resetFieldErrors();
+        }
+
+        // Render Table Data (with Search filter)
+        function renderTable() {
+            const tbody = document.getElementById('studentTableBody');
+            const searchVal = document.getElementById('searchInput').value.toLowerCase();
+            tbody.innerHTML = '';
+
+            const filteredStudents = students.filter(s => 
+                s.id.toLowerCase().includes(searchVal) ||
+                s.name.toLowerCase().includes(searchVal) ||
+                s.email.toLowerCase().includes(searchVal) ||
+                s.course.toLowerCase().includes(searchVal) ||
+                s.yearLevel.toLowerCase().includes(searchVal)
+            );
+
+            if (filteredStudents.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="text-center py-4 text-gray-500">No student records found.</td></tr>`;
+                return;
+            }
+
+            filteredStudents.forEach(student => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td class="font-bold text-indigo-900">${escapeHtml(student.id)}</td>
+                    <td class="font-bold text-indigo-950">${escapeHtml(student.name)}</td>
+                    <td><a href="mailto:${escapeHtml(student.email)}" class="text-indigo-800 underline">${escapeHtml(student.email)}</a></td>
+                    <td>${escapeHtml(String(student.age))}</td>
+                    <td class="font-bold text-indigo-900">${escapeHtml(student.course)}</td>
+                    <td>${escapeHtml(student.yearLevel)}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Render Summary Page Metrics and Bar Chart Breakdown
+        function renderSummary() {
+            const total = students.length;
+            const bsisCount = students.filter(s => s.course === 'BSIS').length;
+            const bscsCount = students.filter(s => s.course === 'BSCS').length;
+            const bsitCount = students.filter(s => s.course === 'BSIT').length;
+
+            const firstYearCount = students.filter(s => s.yearLevel === '1st Year').length;
+            const secondYearCount = students.filter(s => s.yearLevel === '2nd Year').length;
+
+            // Update Statistics numbers
+            document.getElementById('stat-total').innerText = total;
+            document.getElementById('stat-firstyear').innerText = firstYearCount;
+            document.getElementById('stat-secondyear').innerText = secondYearCount;
+
+            // Calculate Max for relative bar widths
+            const maxCount = Math.max(bsisCount, bscsCount, bsitCount, 1);
+
+            // Update Counts and Bar Width percentages
+            document.getElementById('count-bsis').innerText = bsisCount;
+            document.getElementById('bar-bsis').style.width = `${(bsisCount / maxCount) * 100}%`;
+
+            document.getElementById('count-bscs').innerText = bscsCount;
+            document.getElementById('bar-bscs').style.width = `${(bscsCount / maxCount) * 100}%`;
+
+            document.getElementById('count-bsit').innerText = bsitCount;
+            document.getElementById('bar-bsit').style.width = `${(bsitCount / maxCount) * 100}%`;
+        }
+
+        // Helper function for security against XSS
+        function escapeHtml(text) {
+            return String(text)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+    </script>
+</body>
+</html>
