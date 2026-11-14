@@ -1,0 +1,97 @@
+body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+        /* Custom styled card container to match screenshot mockup background */
+        .app-card {
+            background-color: #d8dadf;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+        .app-header {
+            background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
+            border-top-left-radius: 16px;
+            border-top-right-radius: 16px;
+        }
+        /* Custom Input focus and styling */
+        .form-input {
+            width: 100%;
+            padding: 0.6rem 1rem;
+            background-color: #ffffff;
+            border: 1.5px solid #1f2937;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            color: #1f2937;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+        .form-input:focus {
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+        }
+        .form-input.input-error {
+            border-color: #ef4444 !important;
+            background-color: #fff5f5;
+        }
+        .error-message {
+            color: #ef4444;
+            font-size: 0.825rem;
+            font-weight: 600;
+            margin-top: 4px;
+        }
+        .btn-purple {
+            background-color: #4f46e5;
+            color: white;
+            font-weight: 600;
+            padding: 0.6rem 1.5rem;
+            border-radius: 8px;
+            transition: all 0.2s;
+            box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.3);
+        }
+        .btn-purple:hover {
+            background-color: #4338ca;
+            transform: translateY(-1px);
+        }
+        .btn-secondary {
+            background-color: #ffffff;
+            color: #4f46e5;
+            border: 1.5px solid #a5b4fc;
+            font-weight: 600;
+            padding: 0.6rem 1.5rem;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+        .btn-secondary:hover {
+            background-color: #eef2ff;
+        }
+        /* Table Custom Styles */
+        .custom-table {
+            border-collapse: separate;
+            border-spacing: 0;
+            border: 1.5px solid #1f2937;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .custom-table th {
+            background-color: #c7d2fe;
+            color: #1e1b4b;
+            font-weight: 700;
+            padding: 12px 16px;
+            border-bottom: 1.5px solid #1f2937;
+        }
+        .custom-table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #9ca3af;
+            color: #1e1b4b;
+            font-weight: 600;
+        }
+        .custom-table tr:last-child td {
+            border-bottom: none;
+        }
+        /* Summary Metric Card */
+        .metric-box {
+            background-color: #e0e7ff;
+            border: 1.5px solid #1f2937;
+            border-radius: 8px;
+            padding: 16px;
+        }
