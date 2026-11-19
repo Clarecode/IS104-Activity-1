@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Student enrollment summary report prototype">
+  <title>Enrollment Summary Report | Student Enrollment</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">DEBESMSCAT <span>ENROLLMENT</span><small>STUDENT INFORMATION PORTAL · CREATED BY JIMUEL P. PORCARE</small></div>
+    <nav aria-label="Main navigation">
+      <a href="index.html">Enrollment Form</a><a href="errors.html">Form Errors</a><a href="students.html">Student Table</a><a class="active" href="summary.html">Summary Report</a>
+    </nav>
+  </header>
+  <main class="container">
+    <div class="eyebrow">Student services / Reports</div>
+    <h1>Enrollment Summary Report</h1>
+    <p class="subtitle">A quick summary of the fictional student records in the computing and information systems programs.</p>
+    <div class="stats">
+      <div class="stat"><div class="stat-label">Total Students</div><div class="stat-value">06</div><div class="stat-note">Sample enrollment</div></div>
+      <div class="stat"><div class="stat-label">Enrolled Students</div><div class="stat-value">06</div><div class="stat-note">100% of sample</div></div>
+      <div class="stat"><div class="stat-label">Programs</div><div class="stat-value">03</div><div class="stat-note">Computing programs</div></div>
+      <div class="stat"><div class="stat-label">Year Levels</div><div class="stat-value">04</div><div class="stat-note">1st–4th year</div></div>
+    </div>
+    <div class="report-grid">
+      <section class="report-card">
+        <h3>Students by Program</h3>
+        <div class="bar-row"><span>BSIS</span><div class="bar"><span style="width:100%"></span></div><strong>2</strong></div>
+        <div class="bar-row"><span>BSCS</span><div class="bar"><span style="width:100%"></span></div><strong>2</strong></div>
+        <div class="bar-row"><span>BS CpE</span><div class="bar"><span style="width:100%"></span></div><strong>2</strong></div>
+      </section>
+      <section class="report-card">
+        <h3>Enrollment Overview</h3>
+        <div class="report-list"><span>Total student records</span><strong>6</strong></div>
+        <div class="report-list"><span>Enrolled</span><strong>6</strong></div>
+        <div class="report-list"><span>Pending</span><strong>0</strong></div>
+        <div class="report-list"><span>Programs represented</span><strong>3</strong></div>
+        <p class="hint" style="margin-top:15px">Figures are based only on the fictional sample records in this prototype.</p>
+      </section>
+    </div>
+    <div class="form-actions"><a class="btn btn-primary" href="students.html">Back to Student Table</a><a class="btn btn-secondary" href="index.html">Return to Enrollment Form</a></div>
+  </main>
+  <footer class="footer">STUDENT ENROLLMENT SYSTEM · FRONT-END DESIGN PROTOTYPE</footer>
+</body>
+</html>

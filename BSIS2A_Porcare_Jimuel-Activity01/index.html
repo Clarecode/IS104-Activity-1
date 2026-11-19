@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Student enrollment interface prototype">
+  <title>Student Enrollment Form | Student Enrollment</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">DEBESMSCAT <span>ENROLLMENT</span><small>STUDENT INFORMATION PORTAL · CREATED BY JIMUEL P. PORCARE</small></div>
+    <nav aria-label="Main navigation"><a class="active" href="index.html">Enrollment Form</a><a class="" href="errors.html">Form Errors</a><a class="" href="students.html">Student Table</a><a class="" href="summary.html">Summary Report</a></nav>
+  </header>
+  
+<main class="container">
+  <div class="eyebrow">Student services / Enrollment</div>
+  <h1>Student Enrollment Form</h1>
+  <p class="subtitle">Complete the information below to prepare a student enrollment record. Fields marked with an asterisk are required.</p>
+  <section class="card">
+    <h2>Student Information</h2>
+    <p class="card-intro">Please provide accurate and complete information.</p>
+    <form action="errors.html" method="get">
+      <div class="form-grid">
+        <div class="field"><label for="student-id">Student ID <span class="required">*</span></label><input id="student-id" type="text" placeholder="e.g. 2026-0001" required></div>
+        <div class="field"><label for="full-name">Full Name <span class="required">*</span></label><input id="full-name" type="text" placeholder="Enter student's full name" required></div>
+        <div class="field"><label for="email">Email Address <span class="required">*</span></label><input id="email" type="email" placeholder="name@example.com" required></div>
+        <div class="field"><label for="age">Age <span class="required">*</span></label><input id="age" type="number" min="1" max="100" placeholder="Enter age" required></div>
+        <div class="field"><label for="course">Course <span class="required">*</span></label><select id="course" required><option value="">Select a course</option><option>BS Information Systems</option><option>BS Computer Science</option><option>BS Computer Engineering</option></select></div>
+        <div class="field"><label for="year-level">Year Level <span class="required">*</span></label><select id="year-level" required><option value="">Select year level</option><option>1st Year</option><option>2nd Year</option><option>3rd Year</option><option>4th Year</option></select></div></div>
+      <div class="form-actions">
+        <button class="btn btn-primary" type="submit">Submit Enrollment →</button>
+        <button class="btn btn-secondary" type="reset">Clear Form</button>
+      </div>
+      <p class="hint" style="margin-top:14px">Prototype note: this is a front-end demonstration; submitted data is not stored.</p>
+    </form>
+  </section>
+</main>
+
+  <footer class="footer">STUDENT ENROLLMENT SYSTEM · FRONT-END DESIGN PROTOTYPE</footer>
+</body>
+</html>
