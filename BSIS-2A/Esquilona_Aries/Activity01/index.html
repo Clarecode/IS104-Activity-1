@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Student Enrollment Form">
+  <title>Student Enrollment | Student Portal</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="page">
+    <header class="page-header">
+      <span class="brand-pill">STUDENT PORTAL</span>
+      <h1>Student Enrollment</h1>
+      <p class="subtitle">A simple and secure way to register students.</p>
+      <p class="eyebrow">NEW ENROLLMENT</p>
+    </header>
+
+    <section class="form-card" aria-labelledby="form-title">
+      <div class="card-heading">
+        <h2 id="form-title">Student Information</h2>
+        <p>Enter the student's details to begin enrollment.</p>
+      </div>
+
+      <form action="#" method="get">
+        <div class="form-field">
+          <label for="student-id">ID Number <span aria-hidden="true">*</span></label>
+          <input id="student-id" name="student-id" type="text" placeholder="e.g. 2026-001" required>
+        </div>
+
+        <div class="form-field">
+          <label for="full-name">Full Name <span aria-hidden="true">*</span></label>
+          <input id="full-name" name="full-name" type="text" placeholder="e.g. Juan Dela Cruz" autocomplete="name" required>
+        </div>
+
+        <div class="form-field">
+          <label for="email">Email Address <span aria-hidden="true">*</span></label>
+          <input id="email" name="email" type="email" placeholder="e.g. juan@email.com" autocomplete="email" required>
+        </div>
+
+        <div class="form-field">
+          <label for="age">Age <span aria-hidden="true">*</span></label>
+          <input id="age" name="age" type="number" min="1" max="120" placeholder="e.g. 18" required>
+        </div>
+
+        <div class="form-field">
+          <label for="course">Course <span aria-hidden="true">*</span></label>
+          <select id="course" name="course" required>
+            <option value="" selected disabled>Select course</option>
+            <option value="BSIS">Bachelor of Science in Information Systems (BSIS)</option>
+            <option value="BSIT">Bachelor of Science in Information Technology (BSIT)</option>
+            <option value="BSCS">Bachelor of Science in Computer Science (BSCS)</option>
+            <option value="BSHM">Bachelor of Science in Hospitality Management (BSHM)</option>
+            <option value="BSED">Bachelor of Secondary Education (BSED)</option>
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label for="year-level">Year Level <span aria-hidden="true">*</span></label>
+          <select id="year-level" name="year-level" required>
+            <option value="" selected disabled>Select year level</option>
+            <option value="1st Year">1st Year</option>
+            <option value="2nd Year">2nd Year</option>
+            <option value="3rd Year">3rd Year</option>
+            <option value="4th Year">4th Year</option>
+          </select>
+        </div>
+
+        <button type="submit">SUBMIT ENROLLMENT</button>
+        <p class="required-note">* Required fields</p>
+      </form>
+    </section>
+
+    <footer>Student Enrollment Portal <span aria-hidden="true">•</span> Academic Year 2026–2027</footer>
+  </main>
+</body>
+</html>
