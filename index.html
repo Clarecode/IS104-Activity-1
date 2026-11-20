@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Enrollment Form</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+    <h1>STUDENT ENROLLMENT SYSTEM</h1>
+    <nav>
+        <a href="#enrollment">Enrollment Form</a>
+        <a href="#errors">Form with Errors</a>
+        <a href="#students">Student Table</a>
+        <a href="#summary">Summary Report</a>
+    </nav>
+</header>
+
+<main>
+
+<!-- FRAME 1: STUDENT ENROLLMENT -->
+<section class="page-section" id="enrollment">
+    <div class="form-panel">
+        <h2>STUDENT ENROLLMENT</h2>
+        <p class="subtitle">Please fill out the form to register as a student.</p>
+
+        <form action="#students" method="get">
+            <div class="form-grid">
+
+                <div class="field">
+                    <label for="student-id">Student ID *</label>
+                    <input id="student-id" name="student-id" type="text"
+                    placeholder="Enter your student ID" required>
+                </div>
+
+                <div class="field">
+                    <label for="age">Age *</label>
+                    <input id="age" name="age" type="number"
+                    placeholder="Enter your age" min="1" required>
+                </div>
+
+                <div class="field">
+                    <label for="full-name">Full Name *</label>
+                    <input id="full-name" name="full-name" type="text"
+                    placeholder="Enter your complete name" required>
+                </div>
+
+                <div class="field">
+                    <label for="course">Course *</label>
+                    <select id="course" name="course" required>
+                        <option value="" selected disabled>Select your course</option>
+                        <option>BSIS</option>
+                        <option>BSCS</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="email">Email Address *</label>
+                    <input id="email" name="email" type="email"
+                    placeholder="Enter your email address" required>
+                </div>
+
+                <div class="field">
+                    <label for="year-level">Year Level *</label>
+                    <select id="year-level" name="year-level" required>
+                        <option value="" selected disabled>Select your year level</option>
+                        <option>1st Year</option>
+                        <option>2nd Year</option>
+                        <option>3rd Year</option>
+                        <option>4th Year</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <button class="submit-button" type="submit">
+                SUBMIT ENROLLMENT
+            </button>
+        </form>
+    </div>
+</section>
+
+
+<!-- FRAME 2: FORM WITH ERRORS -->
+<section class="page-section" id="errors">
+    <div class="form-panel">
+        <h2>STUDENT ENROLLMENT</h2>
+        <p class="subtitle">Please fill out the form to register as a student.</p>
+
+        <form>
+            <div class="form-grid">
+
+                <div class="field">
+                    <label for="error-student-id">Student ID *</label>
+                    <input id="error-student-id" type="text"
+                    placeholder="Enter your student ID">
+                </div>
+
+                <div class="field">
+                    <label for="error-age">Age *</label>
+                    <input id="error-age" type="number"
+                    placeholder="Enter your age">
+                </div>
+
+                <div class="field">
+                    <label for="error-name">Full Name *</label>
+                    <input id="error-name" type="text"
+                    placeholder="Enter your complete name">
+                </div>
+
+                <div class="field">
+                    <label for="error-course">Course *</label>
+                    <select id="error-course">
+                        <option>Select your course</option>
+                        <option>BSIS</option>
+                        <option>BSCS</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="error-email">Email Address *</label>
+                    <input class="input-error" id="error-email"
+                    type="email" value="invalid-email"
+                    placeholder="Enter your email address">
+                    <small class="error-message">
+                        Please enter a valid email address.
+                    </small>
+                </div>
+
+                <div class="field">
+                    <label for="error-year">Year Level *</label>
+                    <select id="error-year">
+                        <option>Select your year level</option>
+                        <option>1st Year</option>
+                        <option>2nd Year</option>
+                        <option>3rd Year</option>
+                        <option>4th Year</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <a class="submit-button button-link" href="#students">
+                SUBMIT ENROLLMENT
+            </a>
+        </form>
+    </div>
+</section>
+
+
+<!-- FRAME 3: STUDENT TABLE -->
+<section class="page-section" id="students">
+    <div class="table-panel">
+
+        <h2 class="table-title">ENROLLED STUDENTS</h2>
+
+        <div class="table-actions">
+            <a href="#enrollment">Add Student</a>
+            <a href="#enrollment">Edit</a>
+            <a href="#students">Delete</a>
+            <a href="#students">Search</a>
+        </div>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Student ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Age</th>
+                        <th>Course</th>
+                        <th>Year Level</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>26-1-00001</td>
+                        <td>Nancy Riza</td>
+                        <td>nancy@email.com</td>
+                        <td>19</td>
+                        <td>BSIS</td>
+                        <td>1st Year</td>
+                    </tr>
+
+                    <tr>
+                        <td>26-1-00002</td>
+                        <td>Madell Riguela</td>
+                        <td>madell@email.com</td>
+                        <td>20</td>
+                        <td>BSCS</td>
+                        <td>2nd Year</td>
+                    </tr>
+
+                    <tr>
+                        <td>26-1-00003</td>
+                        <td>Angela Dianne</td>
+                        <td>angela@email.com</td>
+                        <td>19</td>
+                        <td>BSCS</td>
+                        <td>1st Year</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p class="table-note">Sample student records for the enrollment table.</p>
+    </div>
+</section>
+
+
+<!-- FRAME 4: SUMMARY REPORT -->
+<section class="page-section" id="summary">
+    <div class="report-panel">
+
+        <h2>ENROLLMENT SUMMARY REPORT</h2>
+        <p class="subtitle">
+            Overview of student enrollment and academic statistics.
+        </p>
+
+        <div class="stats-grid">
+
+            <article class="stat-card">
+                <strong>100</strong>
+                <span>Total Enrolled Students</span>
+            </article>
+
+            <article class="stat-card">
+                <strong>50</strong>
+                <span>BSIS</span>
+            </article>
+
+            <article class="stat-card">
+                <strong>50</strong>
+                <span>BSCS</span>
+            </article>
+
+        </div>
+
+        <div class="report-grid">
+
+            <article class="report-card">
+                <h3>Enrollment by Course</h3>
+
+                <div class="course-head">
+                    <span>Course</span>
+                    <span>Students</span>
+                </div>
+
+                <div class="course-row">
+                    <div>
+                        <b>BSIS</b>
+                        <div class="bar-track">
+                            <span style="width:100%"></span>
+                        </div>
+                    </div>
+                    <strong>50</strong>
+                </div>
+
+                <div class="course-row">
+                    <div>
+                        <b>BSCS</b>
+                        <div class="bar-track">
+                            <span style="width:100%"></span>
+                        </div>
+                    </div>
+                    <strong>50</strong>
+                </div>
+            </article>
+
+
+            <article class="report-card">
+                <h3>Students by Year Level</h3>
+
+                <div class="year-chart">
+                    <div class="year-column">
+                        <span class="bar bar-one"></span>
+                        <b>1st Year</b>
+                    </div>
+
+                    <div class="year-column">
+                        <span class="bar bar-two"></span>
+                        <b>2nd Year</b>
+                    </div>
+
+                    <div class="year-column">
+                        <span class="bar bar-three"></span>
+                        <b>3rd Year</b>
+                    </div>
+
+                    <div class="year-column">
+                        <span class="bar bar-four"></span>
+                        <b>4th Year</b>
+                    </div>
+                </div>
+
+                <p class="chart-note">
+                    Illustrative bar heights; enter your actual year-level totals if available.
+                </p>
+            </article>
+
+        </div>
+
+
+        <article class="report-card report-info">
+            <h3>REPORT INFORMATION</h3>
+            <p><b>Total Enrolled Students:</b> 100</p>
+            <p><b>Total Courses:</b> 2</p>
+            <p><b>Academic Year:</b> 2026–2027</p>
+            <p><b>Report Status:</b> Updated</p>
+        </article>
+
+    </div>
+</section>
+
+</main>
+
+<footer>
+    Student Enrollment System
+</footer>
+
+</body>
+</html>
