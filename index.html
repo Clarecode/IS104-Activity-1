@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Enrollment System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">C</span><div><strong>CampusFlow</strong><small>Student Enrollment System</small></div></div>
+    <span class="header-tag">BSIS 2A · Activity 1</span>
+  </header>
+  <div class="layout">
+    <aside class="sidebar">
+      <p class="menu-label">MAIN MENU</p>
+      <button class="nav-button active" data-view="enroll"><span>＋</span> New Enrollment</button>
+      <button class="nav-button" data-view="records"><span>▤</span> Student Records</button>
+      <button class="nav-button" data-view="report"><span>▥</span> Summary Report</button>
+      <div class="sidebar-note"><strong>Enrollment Portal</strong><p>Enter and manage student information in one place.</p></div>
+    </aside>
+    <main>
+      <section class="view active" id="enroll-view">
+        <div class="page-heading"><div><p class="eyebrow">STUDENT MANAGEMENT</p><h1>Student Enrollment</h1><p class="subtitle">Register a new student by completing the form below.</p></div></div>
+        <div class="panel">
+          <div class="panel-heading"><div class="icon-box">▣</div><div><h2>Student Information</h2><p>All fields are required.</p></div></div>
+          <form id="student-form" novalidate>
+            <div class="form-grid">
+              <div class="field"><label for="studentId">Student ID</label><input id="studentId" placeholder="e.g. 2026-001"><span class="error" id="studentId-error"></span></div>
+              <div class="field"><label for="name">Full Name</label><input id="name" placeholder="Enter full name"><span class="error" id="name-error"></span></div>
+              <div class="field"><label for="email">Email Address</label><input id="email" type="email" placeholder="name@example.com"><span class="error" id="email-error"></span></div>
+              <div class="field"><label for="age">Age</label><input id="age" type="number" min="16" placeholder="Enter age"><span class="error" id="age-error"></span></div>
+              <div class="field"><label for="course">Course</label><select id="course"><option value="">Select course</option><option>BS Information Systems</option><option>BS Information Technology</option><option>BS Computer Science</option><option>BS Computer Engineering</option><option>BS Business Administration</option></select><span class="error" id="course-error"></span></div>
+              <div class="field"><label for="year">Year Level</label><select id="year"><option value="">Select year level</option><option>1st Year</option><option>2nd Year</option><option>3rd Year</option><option>4th Year</option></select><span class="error" id="year-error"></span></div>
+            </div>
+            <div class="form-actions"><button type="reset" class="button secondary">Clear Form</button><button type="submit" class="button primary">Save Enrollment <span>→</span></button></div>
+          </form>
+        </div>
+        <div class="tip"><span>i</span><p>Check the information carefully before saving. Student ID must be unique.</p></div>
+      </section>
+      <section class="view" id="records-view">
+        <div class="page-heading"><div><p class="eyebrow">STUDENT MANAGEMENT</p><h1>Student Records</h1><p class="subtitle">Browse, search, and manage enrolled students.</p></div><button class="button primary" id="add-student">＋ Add Student</button></div>
+        <div class="panel records-panel"><div class="records-toolbar"><input id="search" placeholder="Search by ID, name, email or course…"><span id="record-count" class="count"></span></div>
+          <div class="table-wrap"><table><thead><tr><th>Student ID</th><th>Name</th><th>Email</th><th>Course</th><th>Year</th><th>Age</th><th></th></tr></thead><tbody id="records-body"></tbody></table></div>
+          <div class="empty" id="empty-records">No student records yet. Add a student using the enrollment form.</div>
+        </div>
+      </section>
+      <section class="view" id="report-view">
+        <div class="page-heading"><div><p class="eyebrow">ANALYTICS</p><h1>Enrollment Summary</h1><p class="subtitle">A quick overview of registered students.</p></div><button class="button secondary" id="export-csv">Export CSV</button></div>
+        <div class="stat-grid"><article class="stat-card"><div class="stat-label">TOTAL STUDENTS</div><div class="stat-value" id="total-stat">0</div><div class="stat-foot">Registered students</div></article><article class="stat-card"><div class="stat-label">COURSES</div><div class="stat-value" id="course-stat">0</div><div class="stat-foot">Courses represented</div></article><article class="stat-card"><div class="stat-label">YEAR LEVELS</div><div class="stat-value" id="year-stat">0</div><div class="stat-foot">Year levels represented</div></article></div>
+        <div class="panel"><div class="panel-heading"><div class="icon-box">▥</div><div><h2>Students by Course</h2><p>Distribution of student registrations per course.</p></div></div><div id="course-breakdown" class="breakdown"></div><div id="report-empty" class="empty">Add student records to see the summary.</div></div>
+        <div class="panel"><div class="panel-heading"><div class="icon-box">▥</div><div><h2>Students by Year Level</h2><p>Distribution across academic year levels.</p></div></div><div id="year-breakdown" class="breakdown"></div></div>
+      </section>
+    </main>
+  </div>
+  <div id="toast" role="status" aria-live="polite"></div>
+<script>
+const students=[];
+const form=document.getElementById('student-form');
+const fields=['studentId','name','email','age','course','year'];
+function setError(id,msg){const el=document.getElementById(id);el.textContent=msg;document.getElementById(id.replace('-error','')).classList.toggle('invalid',!!msg);}
+function clearErrors(){fields.forEach(id=>setError(id+'-error',''));}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2400);}
+function switchView(view){document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));document.getElementById(view+'-view').classList.add('active');document.querySelectorAll('.nav-button').forEach(b=>b.classList.toggle('active',b.dataset.view===view));if(view==='records')renderRecords();if(view==='report')renderReport();}
+document.querySelectorAll('.nav-button').forEach(b=>b.addEventListener('click',()=>switchView(b.dataset.view)));
+document.getElementById('add-student').addEventListener('click',()=>switchView('enroll'));
+form.addEventListener('reset',()=>setTimeout(clearErrors,0));
+form.addEventListener('submit',e=>{
+ e.preventDefault();clearErrors();
+ const values={studentId:document.getElementById('studentId').value.trim(),name:document.getElementById('name').value.trim(),email:document.getElementById('email').value.trim(),age:document.getElementById('age').value.trim(),course:document.getElementById('course').value,year:document.getElementById('year').value};
+ let valid=true;
+ if(!values.studentId){setError('studentId-error','Student ID is required.');valid=false;}else if(students.some(s=>s.studentId.toLowerCase()===values.studentId.toLowerCase())){setError('studentId-error','This Student ID already exists.');valid=false;}
+ if(!values.name){setError('name-error','Full name is required.');valid=false;}
+ if(!values.email||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email)){setError('email-error','Enter a valid email address.');valid=false;}
+ if(!values.age||Number(values.age)<16||Number(values.age)>100){setError('age-error','Age must be between 16 and 100.');valid=false;}
+ if(!values.course){setError('course-error','Please select a course.');valid=false;}
+ if(!values.year){setError('year-error','Please select a year level.');valid=false;}
+ if(!valid){document.querySelector('.invalid')?.focus();return;}
+ students.push(values);form.reset();clearErrors();showToast('Enrollment saved successfully!');renderRecords();renderReport();switchView('records');
+});
+function renderRecords(){
+ const q=document.getElementById('search').value.toLowerCase();const body=document.getElementById('records-body');
+ const matches=students.filter(s=>Object.values(s).some(v=>String(v).toLowerCase().includes(q)));
+ body.innerHTML=matches.map(s=>`<tr><td><strong>${esc(s.studentId)}</strong></td><td>${esc(s.name)}</td><td>${esc(s.email)}</td><td>${esc(s.course)}</td><td>${esc(s.year)}</td><td>${esc(s.age)}</td><td><button class="delete" data-id="${esc(s.studentId)}" title="Delete record">×</button></td></tr>`).join('');
+ document.getElementById('empty-records').style.display=matches.length?'none':'block';document.getElementById('record-count').textContent=matches.length+' record(s)';
+ body.querySelectorAll('.delete').forEach(btn=>btn.addEventListener('click',()=>{const i=students.findIndex(s=>s.studentId===btn.dataset.id);if(i>=0)students.splice(i,1);renderRecords();renderReport();showToast('Record deleted.');}));
+}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+document.getElementById('search').addEventListener('input',renderRecords);
+function bars(container,counts){const max=Math.max(1,...counts.map(x=>x[1]));container.innerHTML=counts.map(([name,n])=>`<div class="bar-row"><div class="bar-name">${esc(name)}</div><div class="bar-track"><div class="bar-fill" style="width:${Math.round(n/max*100)}%"></div></div><div class="bar-count">${n}</div></div>`).join('');}
+function renderReport(){
+ document.getElementById('total-stat').textContent=students.length;
+ const courses=[...new Set(students.map(s=>s.course))],years=[...new Set(students.map(s=>s.year))];document.getElementById('course-stat').textContent=courses.length;document.getElementById('year-stat').textContent=years.length;
+ const courseCounts=courses.map(c=>[c,students.filter(s=>s.course===c).length]);const yearOrder=['1st Year','2nd Year','3rd Year','4th Year'];const yearCounts=yearOrder.filter(y=>students.some(s=>s.year===y)).map(y=>[y,students.filter(s=>s.year===y).length]);
+ bars(document.getElementById('course-breakdown'),courseCounts);bars(document.getElementById('year-breakdown'),yearCounts);document.getElementById('report-empty').style.display=students.length?'none':'block';
+}
+document.getElementById('export-csv').addEventListener('click',()=>{if(!students.length){showToast('There are no records to export.');return;}const cols=['Student ID','Name','Email','Age','Course','Year Level'];const rows=students.map(s=>[s.studentId,s.name,s.email,s.age,s.course,s.year]);const csv=[cols,...rows].map(row=>row.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\n');const blob=new Blob([csv],{type:'text/csv'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='student-enrollment-report.csv';a.click();URL.revokeObjectURL(a.href);});
+</script>
+</body>
+</html>
