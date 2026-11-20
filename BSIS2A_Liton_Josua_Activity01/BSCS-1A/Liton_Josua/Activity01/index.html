@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Enrollment | Liton Josua</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="workspace">
+    <header class="masthead">
+      <div class="identity">
+        <div class="monogram">LJ</div>
+        <div>
+          <p class="brandline">CAMPUS ADMINISTRATION</p>
+          <h1>Student Enrollment</h1>
+        </div>
+      </div>
+      <div class="header-meta">
+        <span>ACADEMIC YEAR</span>
+        <strong>2026 — 2027</strong>
+      </div>
+    </header>
+
+    <section class="welcome">
+      <div>
+        <p class="eyebrow">REGISTRATION / STUDENT RECORDS</p>
+        <h2>Enrollment workspace</h2>
+        <p class="welcome-copy">Manage student information and review enrollment records.</p>
+      </div>
+      <div class="welcome-stamp">01 <span>ACTIVITY</span></div>
+    </section>
+
+    <nav class="tabs" aria-label="Enrollment views">
+      <button class="tab active" data-view="formView">Enrollment form</button>
+      <button class="tab" data-view="errorView">Error states</button>
+      <button class="tab" data-view="tableView">Student table</button>
+      <button class="tab" data-view="reportView">Summary report</button>
+    </nav>
+
+    <section class="view" id="formView">
+      <div class="section-row">
+        <div><p class="section-kicker">01 / NEW RECORD</p><h3>Student information</h3></div>
+        <p class="required-note"><b>*</b> Required fields</p>
+      </div>
+      <div class="card">
+        <form id="enrollmentForm" novalidate>
+          <div class="form-grid">
+            <div class="field">
+              <label for="studentId">Student ID <b>*</b></label>
+              <input id="studentId" name="studentId" placeholder="Enter student ID" required>
+              <small class="error"></small>
+            </div>
+            <div class="field">
+              <label for="fullName">Full name <b>*</b></label>
+              <input id="fullName" name="fullName" value="Liton Josua" required>
+              <small class="error"></small>
+            </div>
+            <div class="field">
+              <label for="email">Email address <b>*</b></label>
+              <input id="email" name="email" type="email" placeholder="name@example.com" required>
+              <small class="error"></small>
+            </div>
+            <div class="field">
+              <label for="age">Age <b>*</b></label>
+              <input id="age" name="age" type="number" min="1" max="100" placeholder="Enter age" required>
+              <small class="error"></small>
+            </div>
+            <div class="field">
+              <label for="course">Course <b>*</b></label>
+              <select id="course" name="course" required>
+                <option value="">Select a course</option>
+                <option>BS Computer Science</option>
+                <option>BS Information Technology</option>
+                <option>BS Information Systems</option>
+                <option>BS Computer Engineering</option>
+                <option>Other</option>
+              </select>
+              <small class="error"></small>
+            </div>
+            <div class="field">
+              <label for="yearLevel">Year level <b>*</b></label>
+              <select id="yearLevel" name="yearLevel" required>
+                <option value="">Select year level</option>
+                <option>1st Year</option>
+                <option>2nd Year</option>
+                <option>3rd Year</option>
+                <option>4th Year</option>
+                <option>5th Year</option>
+              </select>
+              <small class="error"></small>
+            </div>
+          </div>
+          <div class="form-footer">
+            <p>Check each entry before submitting the record.</p>
+            <div class="actions">
+              <button class="button button-light" type="reset">Clear fields</button>
+              <button class="button button-dark" type="submit">Save enrollment <span>↗</span></button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <section class="view hidden" id="errorView">
+      <div class="section-row">
+        <div><p class="section-kicker">02 / VALIDATION</p><h3>Error-state examples</h3></div>
+        <span class="state-label">PREVIEW</span>
+      </div>
+      <div class="card">
+        <p class="helper">The examples below show how missing or incorrectly entered information is highlighted.</p>
+        <div class="form-grid">
+          <div class="field"><label>Student ID <b>*</b></label><input class="invalid" placeholder="Enter student ID"><small class="error">Student ID is required.</small></div>
+          <div class="field"><label>Full name <b>*</b></label><input class="invalid" placeholder="Enter full name"><small class="error">Full name is required.</small></div>
+          <div class="field"><label>Email address <b>*</b></label><input class="invalid" value="student@email"><small class="error">Enter a valid email address.</small></div>
+          <div class="field"><label>Age <b>*</b></label><input class="invalid" placeholder="Enter age"><small class="error">Age is required.</small></div>
+          <div class="field"><label>Course <b>*</b></label><select class="invalid"><option>Select a course</option></select><small class="error">Please select a course.</small></div>
+          <div class="field"><label>Year level <b>*</b></label><select class="invalid"><option>Select year level</option></select><small class="error">Please select a year level.</small></div>
+        </div>
+        <div class="preview-footer"><span class="error-dot"></span> Red outlines indicate fields that need attention.</div>
+      </div>
+    </section>
+
+    <section class="view hidden" id="tableView">
+      <div class="section-row">
+        <div><p class="section-kicker">03 / RECORDS</p><h3>Student table</h3></div>
+        <span class="state-label">ENROLLMENT LIST</span>
+      </div>
+      <div class="card table-card">
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>STUDENT ID</th><th>FULL NAME</th><th>EMAIL</th><th>AGE</th><th>COURSE</th><th>YEAR LEVEL</th></tr></thead>
+            <tbody id="studentRows"><tr class="empty"><td colspan="6">No student records have been added yet.</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="view hidden" id="reportView">
+      <div class="section-row">
+        <div><p class="section-kicker">04 / OVERVIEW</p><h3>Summary report</h3></div>
+        <span class="state-label">LIVE TOTALS</span>
+      </div>
+      <div class="summary-grid">
+        <article class="summary-card"><span>TOTAL STUDENTS</span><strong id="totalStudents">0</strong><small>Registered records</small></article>
+        <article class="summary-card"><span>COURSES</span><strong id="totalCourses">0</strong><small>Unique courses</small></article>
+        <article class="summary-card"><span>YEAR LEVELS</span><strong id="totalYears">0</strong><small>Levels represented</small></article>
+      </div>
+      <div class="card report-card">
+        <h4>Report details</h4>
+        <p id="summaryText">The report will be updated when an enrollment is submitted.</p>
+      </div>
+    </section>
+
+    <footer><span>STUDENT ENROLLMENT / PROTOTYPE</span><span>PREPARED FOR LITON JOSUA</span></footer>
+  </main>
+
+<script>
+const tabs = document.querySelectorAll('.tab');
+const views = document.querySelectorAll('.view');
+const form = document.getElementById('enrollmentForm');
+const students = [];
+
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    tabs.forEach(item => item.classList.toggle('active', item === tab));
+    views.forEach(view => view.classList.toggle('hidden', view.id !== tab.dataset.view));
+  });
+});
+
+function validateField(field) {
+  let message = '';
+  if (!field.value.trim()) message = 'This field is required.';
+  else if (field.name === 'email' && !/^\\S+@\\S+\\.\\S+$/.test(field.value)) message = 'Enter a valid email address.';
+  else if (field.name === 'age' && (Number(field.value) < 1 || Number(field.value) > 100)) message = 'Age must be between 1 and 100.';
+  field.classList.toggle('invalid', Boolean(message));
+  field.parentElement.querySelector('.error').textContent = message;
+  return !message;
+}
+
+form.querySelectorAll('input, select').forEach(field => {
+  field.addEventListener('blur', () => validateField(field));
+  field.addEventListener('input', () => { if (field.classList.contains('invalid')) validateField(field); });
+  field.addEventListener('change', () => { if (field.classList.contains('invalid')) validateField(field); });
+});
+
+form.addEventListener('reset', () => setTimeout(() => {
+  form.querySelectorAll('.error').forEach(error => error.textContent = '');
+  form.querySelectorAll('.invalid').forEach(field => field.classList.remove('invalid'));
+}, 0));
+
+form.addEventListener('submit', event => {
+  event.preventDefault();
+  const fields = [...form.querySelectorAll('input, select')];
+  if (!fields.map(validateField).every(Boolean)) return;
+  students.push(Object.fromEntries(new FormData(form).entries()));
+  updateReport();
+  form.reset();
+  alert('Enrollment saved successfully!');
+  document.querySelector('[data-view="tableView"]').click();
+});
+
+function escapeHTML(value) {
+  return String(value).replace(/[&<>"']/g, char => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[char]));
+}
+
+function updateReport() {
+  document.getElementById('studentRows').innerHTML = students.map(student => `
+    <tr>
+      <td>${escapeHTML(student.studentId)}</td>
+      <td>${escapeHTML(student.fullName)}</td>
+      <td>${escapeHTML(student.email)}</td>
+      <td>${escapeHTML(student.age)}</td>
+      <td>${escapeHTML(student.course)}</td>
+      <td>${escapeHTML(student.yearLevel)}</td>
+    </tr>`).join('');
+  document.getElementById('totalStudents').textContent = students.length;
+  document.getElementById('totalCourses').textContent = new Set(students.map(s => s.course)).size;
+  document.getElementById('totalYears').textContent = new Set(students.map(s => s.yearLevel)).size;
+  document.getElementById('summaryText').textContent = students.length
+    ? `${students.length} student(s) enrolled. Courses: ${[...new Set(students.map(s => s.course))].join(', ')}. Year levels: ${[...new Set(students.map(s => s.yearLevel))].join(', ')}.`
+    : 'The report will be updated when an enrollment is submitted.';
+}
+</script>
+</body>
+</html>
