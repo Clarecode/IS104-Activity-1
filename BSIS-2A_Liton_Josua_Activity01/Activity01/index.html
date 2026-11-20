@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Campus Registration | Student Enrollment</title><link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar">
+    <div class="logo"><div class="logo-icon">C</div><div><b>Campus</b><small>REGISTRATION</small></div></div>
+    <div class="side-label">MENU</div>
+    <button class="nav active" data-view="formView"><span>＋</span> New enrollment</button>
+    <button class="nav" data-view="tableView"><span>▤</span> Student records</button>
+    <button class="nav" data-view="summaryView"><span>◷</span> Reports</button>
+    <div class="side-bottom"><div class="avatar">JL</div><div><b>Josua Liton</b><small>Student portal</small></div></div>
+  </aside>
+  <main class="main">
+    <div class="topline"><span>ACADEMIC SERVICES / REGISTRATION</span><span class="status"><i></i> Enrollment portal</span></div>
+    <section id="formView" class="view">
+      <div class="hero"><div><p class="kicker">STUDENT REGISTRATION</p><h1>Let's get you enrolled.</h1><p>Enter your information carefully in the fields below.</p></div><div class="hero-art">✦</div></div>
+      <div class="panel"><div class="panel-title"><div><h2>Personal & academic details</h2><p>All fields marked with * are mandatory.</p></div><div class="step">01 <span>/ 01</span></div></div>
+        <form id="enrollmentForm" novalidate><div class="form-grid">
+          <div class="field"><label for="studentId">Student ID <em>*</em></label><input id="studentId" name="studentId" placeholder="Enter student ID" required><small class="error"></small></div>
+          <div class="field"><label for="fullName">Full name <em>*</em></label><input id="fullName" name="fullName" value="Josua Liton" required><small class="error"></small></div>
+          <div class="field"><label for="email">Email address <em>*</em></label><input id="email" name="email" type="email" placeholder="you@email.com" required><small class="error"></small></div>
+          <div class="field"><label for="age">Age <em>*</em></label><input id="age" name="age" type="number" min="1" max="100" placeholder="Age" required><small class="error"></small></div>
+          <div class="field"><label for="course">Course <em>*</em></label><select id="course" name="course" required><option value="">Choose a course</option><option>BS Computer Science</option><option>BS Information Technology</option><option>BS Information Systems</option><option>BS Computer Engineering</option><option>Other</option></select><small class="error"></small></div>
+          <div class="field"><label for="yearLevel">Year level <em>*</em></label><select id="yearLevel" name="yearLevel" required><option value="">Choose year level</option><option>1st Year</option><option>2nd Year</option><option>3rd Year</option><option>4th Year</option><option>5th Year</option></select><small class="error"></small></div>
+        </div><div class="form-actions"><button type="reset" class="clear">Reset fields</button><button type="submit" class="submit">Save enrollment <span>→</span></button></div></form>
+      </div><div class="note"><b>Note:</b> Review your entries before saving your enrollment.</div>
+    </section>
+    <section id="tableView" class="view hidden"><div class="page-heading"><p class="kicker">DATABASE</p><h1>Student records</h1><p>Students registered using this form will appear here.</p></div><div class="panel table-panel"><table><thead><tr><th>Student ID</th><th>Full name</th><th>Email</th><th>Age</th><th>Course</th><th>Year</th></tr></thead><tbody id="studentRows"><tr class="empty"><td colspan="6">No records to display yet.</td></tr></tbody></table></div></section>
+    <section id="summaryView" class="view hidden"><div class="page-heading"><p class="kicker">OVERVIEW</p><h1>Enrollment report</h1><p>A quick breakdown of submissions.</p></div><div class="metrics"><div class="metric"><small>Total registered</small><strong id="totalStudents">0</strong><span>students</span></div><div class="metric"><small>Unique courses</small><strong id="totalCourses">0</strong><span>courses</span></div><div class="metric"><small>Year levels</small><strong id="totalYears">0</strong><span>represented</span></div></div><div class="panel report"><h2>Report details</h2><p id="summaryText">Enrollment report will appear after the first submission.</p></div></section>
+    <footer>Campus Registration • Activity 01</footer>
+  </main>
+</div>
+<script>
+const form=document.getElementById('enrollmentForm'),navs=document.querySelectorAll('.nav'),views=document.querySelectorAll('.view'),students=[];
+navs.forEach(n=>n.addEventListener('click',()=>{navs.forEach(x=>x.classList.toggle('active',x===n));views.forEach(v=>v.classList.toggle('hidden',v.id!==n.dataset.view));}));
+function validate(f){let msg='';if(!f.value.trim())msg='Required field.';else if(f.name==='email'&&!/^\\S+@\\S+\\.\\S+$/.test(f.value))msg='Please enter a valid email.';else if(f.name==='age'&&(Number(f.value)<1||Number(f.value)>100))msg='Age must be from 1 to 100.';f.classList.toggle('bad',!!msg);f.parentElement.querySelector('.error').textContent=msg;return !msg;}
+form.querySelectorAll('input,select').forEach(f=>{f.addEventListener('blur',()=>validate(f));f.addEventListener('input',()=>{if(f.classList.contains('bad'))validate(f)});f.addEventListener('change',()=>{if(f.classList.contains('bad'))validate(f)});});
+form.addEventListener('submit',e=>{e.preventDefault();const fields=[...form.querySelectorAll('input,select')];if(!fields.map(validate).every(Boolean))return;students.push(Object.fromEntries(new FormData(form).entries()));render();form.reset();fields.forEach(f=>{f.classList.remove('bad');f.parentElement.querySelector('.error').textContent=''});alert('Enrollment saved!');document.querySelector('[data-view="tableView"]').click();});
+form.addEventListener('reset',()=>setTimeout(()=>{form.querySelectorAll('.bad').forEach(f=>f.classList.remove('bad'));form.querySelectorAll('.error').forEach(e=>e.textContent='')},0));
+function render(){document.getElementById('studentRows').innerHTML=students.map(s=>`<tr><td>${safe(s.studentId)}</td><td>${safe(s.fullName)}</td><td>${safe(s.email)}</td><td>${safe(s.age)}</td><td>${safe(s.course)}</td><td>${safe(s.yearLevel)}</td></tr>`).join('');document.getElementById('totalStudents').textContent=students.length;document.getElementById('totalCourses').textContent=new Set(students.map(s=>s.course)).size;document.getElementById('totalYears').textContent=new Set(students.map(s=>s.yearLevel)).size;document.getElementById('summaryText').textContent=students.length?`${students.length} student(s) recorded. Course(s): ${[...new Set(students.map(s=>s.course))].join(', ')}. Year level(s): ${[...new Set(students.map(s=>s.yearLevel))].join(', ')}.`:'Enrollment report will appear after the first submission.';}
+function safe(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+</script></main></body></html>
