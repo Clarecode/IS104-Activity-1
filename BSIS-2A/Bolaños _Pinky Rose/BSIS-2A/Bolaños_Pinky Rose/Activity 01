@@ -1,0 +1,117 @@
+/* STUDENT ENROLLMENT FORM STYLE */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: #f0f4f8;
+    padding: 24px;
+}
+
+.wrapper {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    padding: 28px;
+    border-radius: 14px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #1f2937;
+    margin-bottom: 30px;
+    font-size: 28px;
+}
+
+h2 {
+    color: #374151;
+    margin: 26px 0 16px 0;
+    font-size: 22px;
+    border-bottom: 1px solid #d1d5db;
+    padding-bottom: 8px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 7px;
+    font-size: 16px;
+}
+
+.required {
+    color: #ef4444;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 13px 16px;
+    border: 1px solid #9ca3af;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+.error-input {
+    border: 2px solid #ef4444;
+}
+
+.error-text {
+    color: #ef4444;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 14px;
+    background-color: #1d4ed8;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 12px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 22px 0;
+}
+
+th,
+td {
+    border: 1px solid #cbd5e1;
+    padding: 14px;
+    text-align: left;
+    font-size: 15px;
+}
+
+th {
+    background-color: #e2e8f0;
+    font-weight: 800;
+    color: #111827;
+}
+
+.summary-box {
+    background-color: #dbeafe;
+    padding: 22px;
+    border-radius: 10px;
+    margin-top:18px;
+}
+
+.summary-box p {
+    font-size:16px;
+    margin:8px 0;
+}
