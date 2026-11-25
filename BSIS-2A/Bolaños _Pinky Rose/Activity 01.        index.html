@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html ="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Enrollment System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="wrapper">
+        <h1>Student Enrollment Form</h1>
+
+        <!-- BLANK ENROLLMENT FORM -->
+        <h2>Enrollment Form (Blank)</h2>
+        <form>
+            <div class="form-group">
+                <label for="studentId">Student ID <span class="required">*</span></label>
+                <input type="text" id="studentId" name="studentId" placeholder="Enter Student ID" required>
+            </div>
+            <div class="form-group">
+                <label for="studentName">Full Name <span class="required">*</span></label>
+                <input type="text" id="studentName" name="studentName" placeholder="Enter Full Name" required>
+            </div>
+            <div class="form-group">
+                <label for="studentEmail">Email <span class="required">*</span></label>
+                <input type="email" id="studentEmail" name="studentEmail" placeholder="Enter Email Address" required>
+            </div>
+            <div class="form-group">
+                <label for="studentAge">Age <span class="required">*</span></label>
+                <input type="number" id="studentAge" name="studentAge" placeholder="Enter Age" min="15" max="60" required>
+            </div>
+            <div class="form-group">
+                <label for="studentCourse">Course <span class="required">*</span></label>
+                <select id="studentCourse" name="studentCourse" required>
+                    <option value="">-- Select Course --</option>
+                    <option value="BSED">BS Education</option>
+                    <option value="BSIS">BS Information Systems</option>
+                    <option value="BSIT">BS Information Technology</option>
+                    <option value="BSCS">BS Computer Science</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="yearLevel">Year Level <span class="required">*</span></label>
+                <select id="yearLevel" name="yearLevel" required>
+                    <option value="">-- Select Year Level --</option>
+                    <option value="1">1st Year</option>
+                    <option value="2">2nd Year</option>
+                    <option value="3">3rd Year</option>
+                    <option value="4">4th Year</option>
+                </select>
+            </div>
+            <button class="submit-btn" type="submit">SUBMIT ENROLLMENT</button>
+        </form>
+
+        <!-- FORM WITH ERROR STATES -->
+        <h2>Enrollment Form (With Error States)</h2>
+        <form>
+            <div class="form-group">
+                <label for="studentIdErr">Student ID <span class="required">*</span></label>
+                <input type="text" id="studentIdErr" name="studentIdErr" placeholder="Enter Student ID" class="error-input">
+                <div class="error-text">Error: Student ID is required!</div>
+            </div>
+            <div class="form-group">
+                <label for="studentNameErr">Full Name <span class="required">*</span></label>
+                <input type="text" id="studentNameErr" name="studentNameErr" placeholder="Enter Full Name" class="error-input">
+                <div class="error-text">Error: Full Name is required!</div>
+            </div>
+            <div class="form-group">
+                <label for="studentEmailErr">Email <span class="required">*</span></label>
+                <input type="email" id="studentEmailErr" name="studentEmailErr" placeholder="Enter Email Address" class="error-input">
+                <div class="error-text">Error: Please enter a valid email address!</div>
+            </div>
+            <div class="form-group">
+                <label for="studentAgeErr">Age <span class="required">*</span></label>
+                <input type="number" id="studentAgeErr" name="studentAgeErr" placeholder="Enter Age" min="15" max="60" class="error-input">
+                <div class="error-text">Error: Age must be between 15 and 60!</div>
+            </div>
+            <div class="form-group">
+                <label for="studentCourseErr">Course <span class="required">*</span></label>
+                <select id="studentCourseErr" name="studentCourseErr" class="error-input">
+                    <option value="">-- Select Course --</option>
+                    <option value="BSED">BS Education</option>
+                    <option value="BSIS">BS Information Systems</option>
+                    <option value="BSIT">BS Information Technology</option>
+                    <option value="BSCS">BS Computer Science</option>
+                </select>
+                <div class="error-text">Error: Please select your course!</div>
+            </div>
+            <div class="form-group">
+                <label for="yearLevelErr">Year Level <span class="required">*</span></label>
+                <select id="yearLevelErr" name="yearLevelErr" class="error-input">
+                    <option value="">-- Select Year Level --</option>
+                    <option value="1">1st Year</option>
+                    <option value="2">2nd Year</option>
+                    <option value="3">3rd Year</option>
+                    <option value="4">4th Year</option>
+                </select>
+                <div class="error-text">Error: Please select your year level!</div>
+            </div>
+            <button class="submit-btn" type="submit">SUBMIT ENROLLMENT</button>
+        </form>
+
+        <!-- STUDENT TABLE -->
+        <h2>Student Enrollment Table</h2>
+        <table>
+            <tr>
+                <th>Student ID</th>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Age</th>
+                <th>Course</th>
+                <th>Year Level</th>
+            </tr>
+            <tr>
+                <td>23‑00101</td>
+                <td>Ella Suarez</td>
+                <td>ella.suarez@sample.com</td>
+                <td>20</td>
+                <td>BS Education</td>
+                <td>2nd Year</td>
+            </tr>
+            <tr>
+                <td>23‑00102</td>
+                <td>Alexa Olivia</td>
+                <td>alexa.olivia@sample.com</td>
+                <td>20</td>
+                <td>BS Information Systems</td>
+                <td>2nd Year</td>
+            </tr>
+            <tr>
+                <td>23‑00103</td>
+                <td>Fayeh Jiang</td>
+                <td>fayeh.jiang@sample.com</td>
+                <td>21</td>
+                <td>BS Information Systems</td>
+                <td>2nd Year</td>
+            </tr>
+        </table>
+
+        <!-- SUMMARY REPORT -->
+        <h2>Enrollment Summary Report</h2>
+        <div class="summary-box">
+            <p><strong>Total Enrolled Students:</strong> 3</p>
+            <p><strong>BS Education Enrollees:</strong> 1</p>
+            <p><strong>BS Information Systems Enrollees:</strong> 2</p>
+            <p><strong>BS Information Technology Enrollees:</strong> 0</p>
+            <p><strong>BS Computer Science Enrollees:</strong> 0</p>
+            <p><strong>Average Age of Enrollees:</strong> 20.33</p>
+        </div>
+    </div>
+</body>
+</html>
